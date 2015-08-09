@@ -23,7 +23,7 @@ namespace YGOPro_Tweaker
         {
             //Set URL to Link Label
             LinkLabel.Link link = new LinkLabel.Link();
-            link.LinkData = "https://bitbucket.org/ekaomk/ygopro-tweaker";
+            link.LinkData = "https://github.com/ekaomk/YGOPro-Tweaker";
             llbLink.Links.Add(link);
 
             switch (currentLanguage)
