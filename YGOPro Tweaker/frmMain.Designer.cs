@@ -42,7 +42,7 @@
             this.btnConfig.Name = "btnConfig";
             this.btnConfig.Size = new System.Drawing.Size(374, 47);
             this.btnConfig.TabIndex = 0;
-            this.btnConfig.Text = "YGOPro Config";
+            this.btnConfig.Text = "YGOPro Configuration";
             this.btnConfig.UseVisualStyleBackColor = true;
             this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
             // 
@@ -51,7 +51,7 @@
             this.btnDeckList.Location = new System.Drawing.Point(12, 65);
             this.btnDeckList.Name = "btnDeckList";
             this.btnDeckList.Size = new System.Drawing.Size(374, 47);
-            this.btnDeckList.TabIndex = 0;
+            this.btnDeckList.TabIndex = 7;
             this.btnDeckList.Text = "Deck List Builder";
             this.btnDeckList.UseVisualStyleBackColor = true;
             this.btnDeckList.Click += new System.EventHandler(this.btnDeckList_Click);
@@ -61,7 +61,7 @@
             this.btnDeckExtractor.Location = new System.Drawing.Point(12, 118);
             this.btnDeckExtractor.Name = "btnDeckExtractor";
             this.btnDeckExtractor.Size = new System.Drawing.Size(374, 47);
-            this.btnDeckExtractor.TabIndex = 0;
+            this.btnDeckExtractor.TabIndex = 2;
             this.btnDeckExtractor.Text = "Deck Extractor";
             this.btnDeckExtractor.UseVisualStyleBackColor = true;
             this.btnDeckExtractor.Click += new System.EventHandler(this.btnDeckExtractor_Click);
@@ -82,7 +82,7 @@
             this.llbLink.Location = new System.Drawing.Point(160, 194);
             this.llbLink.Name = "llbLink";
             this.llbLink.Size = new System.Drawing.Size(227, 13);
-            this.llbLink.TabIndex = 9;
+            this.llbLink.TabIndex = 3;
             this.llbLink.TabStop = true;
             this.llbLink.Text = "https://github.com/ekaomk/YGOPro-Tweaker";
             this.llbLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llbLink_LinkClicked);

@@ -34,6 +34,7 @@
             this.pbCard = new System.Windows.Forms.PictureBox();
             this.txtDeckPath = new System.Windows.Forms.TextBox();
             this.btnCopyToClipboard = new System.Windows.Forms.Button();
+            this.btnSaveToTextFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbCard)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,11 +83,22 @@
             this.btnCopyToClipboard.UseVisualStyleBackColor = true;
             this.btnCopyToClipboard.Click += new System.EventHandler(this.btnCopyToClipboard_Click);
             // 
+            // btnSaveToTextFile
+            // 
+            this.btnSaveToTextFile.Location = new System.Drawing.Point(12, 324);
+            this.btnSaveToTextFile.Name = "btnSaveToTextFile";
+            this.btnSaveToTextFile.Size = new System.Drawing.Size(465, 23);
+            this.btnSaveToTextFile.TabIndex = 4;
+            this.btnSaveToTextFile.Text = "Save To Text File";
+            this.btnSaveToTextFile.UseVisualStyleBackColor = true;
+            this.btnSaveToTextFile.Click += new System.EventHandler(this.btnSaveToTextFile_Click);
+            // 
             // frmDeckList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(489, 325);
+            this.ClientSize = new System.Drawing.Size(489, 354);
+            this.Controls.Add(this.btnSaveToTextFile);
             this.Controls.Add(this.btnCopyToClipboard);
             this.Controls.Add(this.txtDeckPath);
             this.Controls.Add(this.pbCard);
@@ -112,5 +124,6 @@
         private System.Windows.Forms.PictureBox pbCard;
         private System.Windows.Forms.TextBox txtDeckPath;
         private System.Windows.Forms.Button btnCopyToClipboard;
+        private System.Windows.Forms.Button btnSaveToTextFile;
     }
 }

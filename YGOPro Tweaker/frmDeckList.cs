@@ -194,7 +194,7 @@ namespace YGOPro_Tweaker
         private bool getCardID()
         {
             OpenFileDialog OFD = new OpenFileDialog();
-            OFD.InitialDirectory = Application.StartupPath;
+            OFD.InitialDirectory = Application.StartupPath + "\\deck";
             OFD.Filter = "YGOPro Deck Files (*.ydk)|*.ydk|All files (*.*)|*.*";
             OFD.FilterIndex = 1;
             OFD.RestoreDirectory = true;
@@ -269,14 +269,35 @@ namespace YGOPro_Tweaker
         {
             if (allCard.Count > 0)
             {
-                StringBuilder sbdTemp = new StringBuilder();
-                foreach (cardData cards in allCard)
-                {
-                    sbdTemp.AppendLine(cards.Name);
-                }
-                Clipboard.SetText(sbdTemp.ToString());
+                Clipboard.SetText(getListString());
                 MessageBox.Show(Copied_To_Clipboard_Text, Information_Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void btnSaveToTextFile_Click(object sender, EventArgs e)
+        {
+            if (allCard.Count > 0)
+            {
+                SaveFileDialog sfg = new SaveFileDialog();
+                sfg.FileName = "decklist.txt"; // Default file name
+                sfg.DefaultExt = ".txt"; // Default file extension
+                sfg.Filter = "Text File (.txt)|*.txt"; // Filter files by extension 
+
+                if (sfg.ShowDialog() == DialogResult.OK)
+                {
+                    System.IO.File.WriteAllBytes(sfg.FileName, Encoding.UTF8.GetBytes(getListString()));
+                }
+            }
+        }
+
+        private string getListString()
+        {
+            StringBuilder sbdTemp = new StringBuilder();
+            foreach (cardData cards in allCard)
+            {
+                sbdTemp.AppendLine(cards.Name);
+            }
+            return sbdTemp.ToString();
         }
     }
 }

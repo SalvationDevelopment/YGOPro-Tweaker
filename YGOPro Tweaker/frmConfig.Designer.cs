@@ -137,7 +137,7 @@
             this.gbLanguage.Location = new System.Drawing.Point(12, 12);
             this.gbLanguage.Name = "gbLanguage";
             this.gbLanguage.Size = new System.Drawing.Size(274, 49);
-            this.gbLanguage.TabIndex = 2;
+            this.gbLanguage.TabIndex = 0;
             this.gbLanguage.TabStop = false;
             this.gbLanguage.Text = "Language";
             // 
@@ -181,7 +181,7 @@
             this.gbDirect3D.Location = new System.Drawing.Point(12, 67);
             this.gbDirect3D.Name = "gbDirect3D";
             this.gbDirect3D.Size = new System.Drawing.Size(274, 46);
-            this.gbDirect3D.TabIndex = 3;
+            this.gbDirect3D.TabIndex = 1;
             this.gbDirect3D.TabStop = false;
             this.gbDirect3D.Text = "Direct3D";
             // 
@@ -215,7 +215,7 @@
             this.gbSkin.Location = new System.Drawing.Point(12, 119);
             this.gbSkin.Name = "gbSkin";
             this.gbSkin.Size = new System.Drawing.Size(274, 46);
-            this.gbSkin.TabIndex = 3;
+            this.gbSkin.TabIndex = 2;
             this.gbSkin.TabStop = false;
             this.gbSkin.Text = "Skin";
             // 
@@ -312,7 +312,7 @@
             this.gbNickName.Location = new System.Drawing.Point(12, 300);
             this.gbNickName.Name = "gbNickName";
             this.gbNickName.Size = new System.Drawing.Size(274, 46);
-            this.gbNickName.TabIndex = 3;
+            this.gbNickName.TabIndex = 5;
             this.gbNickName.TabStop = false;
             this.gbNickName.Text = "Nickname";
             // 
@@ -328,7 +328,7 @@
             this.btnSave.Location = new System.Drawing.Point(448, 265);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(135, 80);
-            this.btnSave.TabIndex = 4;
+            this.btnSave.TabIndex = 19;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -342,7 +342,7 @@
             this.gbTextFont.Location = new System.Drawing.Point(12, 352);
             this.gbTextFont.Name = "gbTextFont";
             this.gbTextFont.Size = new System.Drawing.Size(274, 45);
-            this.gbTextFont.TabIndex = 3;
+            this.gbTextFont.TabIndex = 6;
             this.gbTextFont.TabStop = false;
             this.gbTextFont.Text = "Text Font";
             // 
@@ -386,7 +386,7 @@
             this.gbNumberFont.Location = new System.Drawing.Point(12, 403);
             this.gbNumberFont.Name = "gbNumberFont";
             this.gbNumberFont.Size = new System.Drawing.Size(274, 49);
-            this.gbNumberFont.TabIndex = 3;
+            this.gbNumberFont.TabIndex = 7;
             this.gbNumberFont.TabStop = false;
             this.gbNumberFont.Text = "Number Font";
             // 
@@ -413,7 +413,7 @@
             this.gbSound.Location = new System.Drawing.Point(292, 15);
             this.gbSound.Name = "gbSound";
             this.gbSound.Size = new System.Drawing.Size(150, 46);
-            this.gbSound.TabIndex = 3;
+            this.gbSound.TabIndex = 8;
             this.gbSound.TabStop = false;
             this.gbSound.Text = "Sound";
             // 
@@ -446,7 +446,7 @@
             this.gbMusic.Location = new System.Drawing.Point(292, 67);
             this.gbMusic.Name = "gbMusic";
             this.gbMusic.Size = new System.Drawing.Size(150, 46);
-            this.gbMusic.TabIndex = 3;
+            this.gbMusic.TabIndex = 9;
             this.gbMusic.TabStop = false;
             this.gbMusic.Text = "Music";
             // 
@@ -479,7 +479,7 @@
             this.gbAutoCardPlacing.Location = new System.Drawing.Point(292, 119);
             this.gbAutoCardPlacing.Name = "gbAutoCardPlacing";
             this.gbAutoCardPlacing.Size = new System.Drawing.Size(150, 46);
-            this.gbAutoCardPlacing.TabIndex = 3;
+            this.gbAutoCardPlacing.TabIndex = 10;
             this.gbAutoCardPlacing.TabStop = false;
             this.gbAutoCardPlacing.Text = "Auto Card Placing";
             // 
@@ -512,7 +512,7 @@
             this.gbRandomCardPlacing.Location = new System.Drawing.Point(292, 171);
             this.gbRandomCardPlacing.Name = "gbRandomCardPlacing";
             this.gbRandomCardPlacing.Size = new System.Drawing.Size(150, 46);
-            this.gbRandomCardPlacing.TabIndex = 3;
+            this.gbRandomCardPlacing.TabIndex = 11;
             this.gbRandomCardPlacing.TabStop = false;
             this.gbRandomCardPlacing.Text = "Random Card Placing";
             // 
@@ -545,7 +545,7 @@
             this.gbNoDelayForChain.Location = new System.Drawing.Point(292, 275);
             this.gbNoDelayForChain.Name = "gbNoDelayForChain";
             this.gbNoDelayForChain.Size = new System.Drawing.Size(150, 46);
-            this.gbNoDelayForChain.TabIndex = 3;
+            this.gbNoDelayForChain.TabIndex = 13;
             this.gbNoDelayForChain.TabStop = false;
             this.gbNoDelayForChain.Text = "No Delay For Chain";
             // 
@@ -578,7 +578,7 @@
             this.gbMuteOpponent.Location = new System.Drawing.Point(292, 327);
             this.gbMuteOpponent.Name = "gbMuteOpponent";
             this.gbMuteOpponent.Size = new System.Drawing.Size(150, 46);
-            this.gbMuteOpponent.TabIndex = 3;
+            this.gbMuteOpponent.TabIndex = 14;
             this.gbMuteOpponent.TabStop = false;
             this.gbMuteOpponent.Text = "Mute Opponent";
             // 
@@ -611,7 +611,7 @@
             this.gbMuteSpectators.Location = new System.Drawing.Point(292, 379);
             this.gbMuteSpectators.Name = "gbMuteSpectators";
             this.gbMuteSpectators.Size = new System.Drawing.Size(150, 46);
-            this.gbMuteSpectators.TabIndex = 3;
+            this.gbMuteSpectators.TabIndex = 15;
             this.gbMuteSpectators.TabStop = false;
             this.gbMuteSpectators.Text = "Mute Spectators";
             // 
@@ -644,7 +644,7 @@
             this.gbVolume.Location = new System.Drawing.Point(448, 67);
             this.gbVolume.Name = "gbVolume";
             this.gbVolume.Size = new System.Drawing.Size(274, 71);
-            this.gbVolume.TabIndex = 5;
+            this.gbVolume.TabIndex = 17;
             this.gbVolume.TabStop = false;
             this.gbVolume.Text = "Volume";
             // 
@@ -677,7 +677,7 @@
             this.gbBackground.Location = new System.Drawing.Point(448, 141);
             this.gbBackground.Name = "gbBackground";
             this.gbBackground.Size = new System.Drawing.Size(274, 118);
-            this.gbBackground.TabIndex = 2;
+            this.gbBackground.TabIndex = 18;
             this.gbBackground.TabStop = false;
             this.gbBackground.Text = "Background";
             // 
@@ -730,7 +730,7 @@
             this.btnReset.Location = new System.Drawing.Point(587, 265);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(135, 80);
-            this.btnReset.TabIndex = 4;
+            this.btnReset.TabIndex = 20;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
@@ -740,7 +740,7 @@
             this.btnLoadDefault.Location = new System.Drawing.Point(448, 351);
             this.btnLoadDefault.Name = "btnLoadDefault";
             this.btnLoadDefault.Size = new System.Drawing.Size(274, 80);
-            this.btnLoadDefault.TabIndex = 6;
+            this.btnLoadDefault.TabIndex = 21;
             this.btnLoadDefault.Text = "Load Default Config";
             this.btnLoadDefault.UseVisualStyleBackColor = true;
             this.btnLoadDefault.Click += new System.EventHandler(this.btnLoadDefault_Click);
@@ -752,7 +752,7 @@
             this.gbAutoChainOrder.Location = new System.Drawing.Point(292, 223);
             this.gbAutoChainOrder.Name = "gbAutoChainOrder";
             this.gbAutoChainOrder.Size = new System.Drawing.Size(150, 46);
-            this.gbAutoChainOrder.TabIndex = 9;
+            this.gbAutoChainOrder.TabIndex = 12;
             this.gbAutoChainOrder.TabStop = false;
             this.gbAutoChainOrder.Text = "Auto Chain Order";
             // 
@@ -784,8 +784,8 @@
             this.gbScreenMode.Controls.Add(this.rbScreenSettingWindowed);
             this.gbScreenMode.Location = new System.Drawing.Point(448, 15);
             this.gbScreenMode.Name = "gbScreenMode";
-            this.gbScreenMode.Size = new System.Drawing.Size(202, 46);
-            this.gbScreenMode.TabIndex = 3;
+            this.gbScreenMode.Size = new System.Drawing.Size(274, 46);
+            this.gbScreenMode.TabIndex = 16;
             this.gbScreenMode.TabStop = false;
             this.gbScreenMode.Text = "Screen Mode";
             // 
@@ -843,7 +843,7 @@
             this.MaximizeBox = false;
             this.Name = "frmConfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "YGOPro Config - YGOPro Tweaker";
+            this.Text = "Configuration - YGOPro Tweaker";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.gbLanguage.ResumeLayout(false);
             this.gbLanguage.PerformLayout();

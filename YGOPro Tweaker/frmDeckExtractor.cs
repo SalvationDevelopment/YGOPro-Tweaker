@@ -323,7 +323,7 @@ namespace YGOPro_Tweaker
         private void btnLoadDeck_Click(object sender, EventArgs e)
         {
             OpenFileDialog OFD = new OpenFileDialog();
-            OFD.InitialDirectory = Application.StartupPath;
+            OFD.InitialDirectory = Application.StartupPath + "\\replay";
             OFD.Filter = "YGOPro Replay Files (*.yrp)|*.yrp|All files (*.*)|*.*";
             OFD.FilterIndex = 1;
             OFD.RestoreDirectory = true;
@@ -508,13 +508,13 @@ namespace YGOPro_Tweaker
             {
                 // Configure save file dialog box
                 SaveFileDialog dlg = new SaveFileDialog();
+                dlg.InitialDirectory = Application.StartupPath + "\\deck";
                 dlg.FileName = "deck.ydk"; // Default file name
                 dlg.DefaultExt = ".ydk"; // Default file extension
                 dlg.Filter = "YGOPro Deck Files (.ydk)|*.ydk"; // Filter files by extension 
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    StringBuilder strb = new StringBuilder();
                     System.IO.File.WriteAllBytes(dlg.FileName, System.Text.Encoding.UTF8.GetBytes(PlayerOneDeck.ToString()));
                 }
             }
@@ -526,13 +526,13 @@ namespace YGOPro_Tweaker
             {
                 // Configure save file dialog box
                 SaveFileDialog dlg = new SaveFileDialog();
+                dlg.InitialDirectory = Application.StartupPath + "\\deck";
                 dlg.FileName = "deck.ydk"; // Default file name
                 dlg.DefaultExt = ".ydk"; // Default file extension
                 dlg.Filter = "YGOPro Deck Files (.ydk)|*.ydk"; // Filter files by extension 
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    StringBuilder strb = new StringBuilder();
                     System.IO.File.WriteAllBytes(dlg.FileName, System.Text.Encoding.UTF8.GetBytes(PlayerTwoDeck.ToString()));
                 }
             }
@@ -544,13 +544,13 @@ namespace YGOPro_Tweaker
             {
                 // Configure save file dialog box
                 SaveFileDialog dlg = new SaveFileDialog();
+                dlg.InitialDirectory = Application.StartupPath + "\\deck";
                 dlg.FileName = "deck.ydk"; // Default file name
                 dlg.DefaultExt = ".ydk"; // Default file extension
                 dlg.Filter = "YGOPro Deck Files (.ydk)|*.ydk"; // Filter files by extension 
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    StringBuilder strb = new StringBuilder();
                     System.IO.File.WriteAllBytes(dlg.FileName, System.Text.Encoding.UTF8.GetBytes(PlayerThreeDeck.ToString()));
                 }
             }
@@ -562,14 +562,13 @@ namespace YGOPro_Tweaker
             {
                 // Configure save file dialog box
                 SaveFileDialog dlg = new SaveFileDialog();
+                dlg.InitialDirectory = Application.StartupPath + "\\deck";
                 dlg.FileName = "deck.ydk"; // Default file name
                 dlg.DefaultExt = ".ydk"; // Default file extension
                 dlg.Filter = "YGOPro Deck Files (.ydk)|*.ydk"; // Filter files by extension 
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    StringBuilder strb = new StringBuilder();
-
                     System.IO.File.WriteAllBytes(dlg.FileName, System.Text.Encoding.UTF8.GetBytes(PlayerFourDeck.ToString()));
                 }
             }
