@@ -38,7 +38,9 @@ namespace YGOPro_Tweaker
             mute_opponent,
             mute_spectators,
             volume,
-            background
+            background,
+            alignment_fix,
+            show_anime
         }
 
         public string readConfig(configVar config)

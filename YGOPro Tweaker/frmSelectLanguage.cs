@@ -18,7 +18,6 @@ namespace YGOPro_Tweaker
 
         private void btnEnglish_Click(object sender, EventArgs e)
         {
-            _CConf.writeConfig(CConf.configVar.language, "en");
             frmMain mainForm = new frmMain(0);
             this.Hide();
             mainForm.ShowDialog();
@@ -27,7 +26,6 @@ namespace YGOPro_Tweaker
 
         private void btnThai_Click(object sender, EventArgs e)
         {
-            _CConf.writeConfig(CConf.configVar.language, "th");
             frmMain mainForm = new frmMain(1);
             this.Hide();
             mainForm.ShowDialog();

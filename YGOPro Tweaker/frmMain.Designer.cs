@@ -81,10 +81,10 @@
             this.llbLink.AutoSize = true;
             this.llbLink.Location = new System.Drawing.Point(160, 194);
             this.llbLink.Name = "llbLink";
-            this.llbLink.Size = new System.Drawing.Size(226, 13);
+            this.llbLink.Size = new System.Drawing.Size(227, 13);
             this.llbLink.TabIndex = 9;
             this.llbLink.TabStop = true;
-            this.llbLink.Text = "https://bitbucket.org/ekaomk/ygopro-tweaker";
+            this.llbLink.Text = "https://github.com/ekaomk/YGOPro-Tweaker";
             this.llbLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llbLink_LinkClicked);
             // 
             // frmMain
