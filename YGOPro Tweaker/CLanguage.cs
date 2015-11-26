@@ -63,6 +63,7 @@ namespace YGOPro_Tweaker
                 public String Information_Text { get { return "ข้อมูล"; } }
                 public String Error_Text { get { return "เกิดข้อผิดพลาด"; } }
                 public String Replay_Error_Text { get { return "รีเพล์ผิดพลาดหรือเป็นเวอร์ชันเก่า. โปรแกรมหาไอดีการ์ดนี้ไม่พบ.{0}ไอดีการ์ด : {1}"; } }
+                public String Ignore_Card_Missing_Text { get { return "ไม่สนใจหากการ์ดหาย ( สำหรับ Expansion )"; } }
             }
 
             public class English

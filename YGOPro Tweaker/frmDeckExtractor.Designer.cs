@@ -48,11 +48,12 @@
             this.lbStartLP = new System.Windows.Forms.Label();
             this.lbMode = new System.Windows.Forms.Label();
             this.btnLoadDeck = new System.Windows.Forms.Button();
+            this.cbIgnoreCardMissing = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtReplayPath
             // 
-            this.txtReplayPath.Location = new System.Drawing.Point(10, 84);
+            this.txtReplayPath.Location = new System.Drawing.Point(9, 90);
             this.txtReplayPath.Name = "txtReplayPath";
             this.txtReplayPath.ReadOnly = true;
             this.txtReplayPath.Size = new System.Drawing.Size(585, 20);
@@ -60,7 +61,7 @@
             // 
             // btnCopyDeckListPlayerThree
             // 
-            this.btnCopyDeckListPlayerThree.Location = new System.Drawing.Point(10, 522);
+            this.btnCopyDeckListPlayerThree.Location = new System.Drawing.Point(9, 528);
             this.btnCopyDeckListPlayerThree.Name = "btnCopyDeckListPlayerThree";
             this.btnCopyDeckListPlayerThree.Size = new System.Drawing.Size(330, 23);
             this.btnCopyDeckListPlayerThree.TabIndex = 22;
@@ -70,7 +71,7 @@
             // 
             // btnSaveDeckListPlayerThree
             // 
-            this.btnSaveDeckListPlayerThree.Location = new System.Drawing.Point(10, 551);
+            this.btnSaveDeckListPlayerThree.Location = new System.Drawing.Point(9, 557);
             this.btnSaveDeckListPlayerThree.Name = "btnSaveDeckListPlayerThree";
             this.btnSaveDeckListPlayerThree.Size = new System.Drawing.Size(330, 23);
             this.btnSaveDeckListPlayerThree.TabIndex = 21;
@@ -80,7 +81,7 @@
             // 
             // btnSaveDeckListPlayerFour
             // 
-            this.btnSaveDeckListPlayerFour.Location = new System.Drawing.Point(346, 551);
+            this.btnSaveDeckListPlayerFour.Location = new System.Drawing.Point(345, 557);
             this.btnSaveDeckListPlayerFour.Name = "btnSaveDeckListPlayerFour";
             this.btnSaveDeckListPlayerFour.Size = new System.Drawing.Size(330, 23);
             this.btnSaveDeckListPlayerFour.TabIndex = 20;
@@ -90,7 +91,7 @@
             // 
             // btnCopyDeckListPlayerFour
             // 
-            this.btnCopyDeckListPlayerFour.Location = new System.Drawing.Point(346, 522);
+            this.btnCopyDeckListPlayerFour.Location = new System.Drawing.Point(345, 528);
             this.btnCopyDeckListPlayerFour.Name = "btnCopyDeckListPlayerFour";
             this.btnCopyDeckListPlayerFour.Size = new System.Drawing.Size(330, 23);
             this.btnCopyDeckListPlayerFour.TabIndex = 19;
@@ -100,7 +101,7 @@
             // 
             // btnSaveDeckListPlayerTwo
             // 
-            this.btnSaveDeckListPlayerTwo.Location = new System.Drawing.Point(346, 316);
+            this.btnSaveDeckListPlayerTwo.Location = new System.Drawing.Point(345, 322);
             this.btnSaveDeckListPlayerTwo.Name = "btnSaveDeckListPlayerTwo";
             this.btnSaveDeckListPlayerTwo.Size = new System.Drawing.Size(330, 23);
             this.btnSaveDeckListPlayerTwo.TabIndex = 18;
@@ -110,7 +111,7 @@
             // 
             // btnCopyDeckListPlayerTwo
             // 
-            this.btnCopyDeckListPlayerTwo.Location = new System.Drawing.Point(346, 287);
+            this.btnCopyDeckListPlayerTwo.Location = new System.Drawing.Point(345, 293);
             this.btnCopyDeckListPlayerTwo.Name = "btnCopyDeckListPlayerTwo";
             this.btnCopyDeckListPlayerTwo.Size = new System.Drawing.Size(330, 23);
             this.btnCopyDeckListPlayerTwo.TabIndex = 17;
@@ -120,7 +121,7 @@
             // 
             // btnSaveDeckListPlayerOne
             // 
-            this.btnSaveDeckListPlayerOne.Location = new System.Drawing.Point(10, 316);
+            this.btnSaveDeckListPlayerOne.Location = new System.Drawing.Point(9, 322);
             this.btnSaveDeckListPlayerOne.Name = "btnSaveDeckListPlayerOne";
             this.btnSaveDeckListPlayerOne.Size = new System.Drawing.Size(330, 23);
             this.btnSaveDeckListPlayerOne.TabIndex = 23;
@@ -130,7 +131,7 @@
             // 
             // btnCopyDeckListPlayerOne
             // 
-            this.btnCopyDeckListPlayerOne.Location = new System.Drawing.Point(10, 287);
+            this.btnCopyDeckListPlayerOne.Location = new System.Drawing.Point(9, 293);
             this.btnCopyDeckListPlayerOne.Name = "btnCopyDeckListPlayerOne";
             this.btnCopyDeckListPlayerOne.Size = new System.Drawing.Size(330, 23);
             this.btnCopyDeckListPlayerOne.TabIndex = 16;
@@ -141,7 +142,7 @@
             // listPlayerFourDeckList
             // 
             this.listPlayerFourDeckList.FormattingEnabled = true;
-            this.listPlayerFourDeckList.Location = new System.Drawing.Point(346, 345);
+            this.listPlayerFourDeckList.Location = new System.Drawing.Point(345, 351);
             this.listPlayerFourDeckList.Name = "listPlayerFourDeckList";
             this.listPlayerFourDeckList.Size = new System.Drawing.Size(330, 173);
             this.listPlayerFourDeckList.TabIndex = 15;
@@ -149,7 +150,7 @@
             // listPlayerThreeDeckList
             // 
             this.listPlayerThreeDeckList.FormattingEnabled = true;
-            this.listPlayerThreeDeckList.Location = new System.Drawing.Point(10, 345);
+            this.listPlayerThreeDeckList.Location = new System.Drawing.Point(9, 351);
             this.listPlayerThreeDeckList.Name = "listPlayerThreeDeckList";
             this.listPlayerThreeDeckList.Size = new System.Drawing.Size(330, 173);
             this.listPlayerThreeDeckList.TabIndex = 14;
@@ -157,7 +158,7 @@
             // listPlayerTwoDeckList
             // 
             this.listPlayerTwoDeckList.FormattingEnabled = true;
-            this.listPlayerTwoDeckList.Location = new System.Drawing.Point(346, 110);
+            this.listPlayerTwoDeckList.Location = new System.Drawing.Point(345, 116);
             this.listPlayerTwoDeckList.Name = "listPlayerTwoDeckList";
             this.listPlayerTwoDeckList.Size = new System.Drawing.Size(330, 173);
             this.listPlayerTwoDeckList.TabIndex = 13;
@@ -165,7 +166,7 @@
             // listPlayerOneDeckList
             // 
             this.listPlayerOneDeckList.FormattingEnabled = true;
-            this.listPlayerOneDeckList.Location = new System.Drawing.Point(10, 110);
+            this.listPlayerOneDeckList.Location = new System.Drawing.Point(9, 116);
             this.listPlayerOneDeckList.Name = "listPlayerOneDeckList";
             this.listPlayerOneDeckList.Size = new System.Drawing.Size(330, 173);
             this.listPlayerOneDeckList.TabIndex = 12;
@@ -217,7 +218,7 @@
             // 
             // btnLoadDeck
             // 
-            this.btnLoadDeck.Location = new System.Drawing.Point(601, 82);
+            this.btnLoadDeck.Location = new System.Drawing.Point(600, 88);
             this.btnLoadDeck.Name = "btnLoadDeck";
             this.btnLoadDeck.Size = new System.Drawing.Size(75, 23);
             this.btnLoadDeck.TabIndex = 6;
@@ -225,11 +226,22 @@
             this.btnLoadDeck.UseVisualStyleBackColor = true;
             this.btnLoadDeck.Click += new System.EventHandler(this.btnLoadDeck_Click);
             // 
+            // cbIgnoreCardMissing
+            // 
+            this.cbIgnoreCardMissing.AutoSize = true;
+            this.cbIgnoreCardMissing.Location = new System.Drawing.Point(9, 67);
+            this.cbIgnoreCardMissing.Name = "cbIgnoreCardMissing";
+            this.cbIgnoreCardMissing.Size = new System.Drawing.Size(201, 17);
+            this.cbIgnoreCardMissing.TabIndex = 25;
+            this.cbIgnoreCardMissing.Text = "Ignore carad missing ( for expansion )";
+            this.cbIgnoreCardMissing.UseVisualStyleBackColor = true;
+            // 
             // frmDeckExtractor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(681, 581);
+            this.ClientSize = new System.Drawing.Size(681, 587);
+            this.Controls.Add(this.cbIgnoreCardMissing);
             this.Controls.Add(this.txtReplayPath);
             this.Controls.Add(this.btnCopyDeckListPlayerThree);
             this.Controls.Add(this.btnSaveDeckListPlayerThree);
@@ -282,5 +294,6 @@
         private System.Windows.Forms.Label lbStartLP;
         private System.Windows.Forms.Label lbMode;
         private System.Windows.Forms.Button btnLoadDeck;
+        private System.Windows.Forms.CheckBox cbIgnoreCardMissing;
     }
 }

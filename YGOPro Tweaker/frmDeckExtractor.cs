@@ -134,6 +134,8 @@ namespace YGOPro_Tweaker
                     lbPlayer.Text = String.Format(thaiLanguage.Player_Text, "?");
                     lbDrawFor.Text = String.Format(thaiLanguage.Draw_For_Text, "?");
 
+                    cbIgnoreCardMissing.Text = thaiLanguage.Ignore_Card_Missing_Text;
+
                     this.Text = thaiLanguage.Title;
                     break;
                 default: break;
@@ -213,7 +215,7 @@ namespace YGOPro_Tweaker
             {
                 string CardID = Replay.DataReader.ReadInt32().ToString(System.Globalization.CultureInfo.InvariantCulture);
                 string CardName = GetCardName(Convert.ToInt32(CardID));
-                if (CardName == "")
+                if (CardName == "" && !cbIgnoreCardMissing.Checked)
                 {
                     MessageBox.Show(String.Format(Replay_Error_Text, Environment.NewLine, CardID.ToString()
                         ), Error_Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -229,7 +231,8 @@ namespace YGOPro_Tweaker
                     int CardNumber = Convert.ToInt32(PlayerMainDeckText[index].Substring(PlayerMainDeckText[index].Length - 1, 1));
 
                     CardNumber++;
-                    PlayerMainDeckText[index] = (CardName + " x" + CardNumber.ToString());
+
+                    PlayerMainDeckText[index] = ((CardName == string.Empty ? "UNKNOW CARD": CardName) + " x" + CardNumber.ToString());
                 }
                 else
                 {
@@ -245,7 +248,7 @@ namespace YGOPro_Tweaker
             {
                 string CardID = Replay.DataReader.ReadInt32().ToString(System.Globalization.CultureInfo.InvariantCulture);
                 string CardName = GetCardName(Convert.ToInt32(CardID));
-                if (CardName == "")
+                if (CardName == "" && !cbIgnoreCardMissing.Checked)
                 {
                     MessageBox.Show(String.Format(Replay_Error_Text, Environment.NewLine, CardID.ToString()
                         ), Error_Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -259,7 +262,7 @@ namespace YGOPro_Tweaker
                 {
                     int CardNumber = Convert.ToInt32(PlayerExtraDeckText[index].Substring(PlayerExtraDeckText[index].Length - 1, 1));
 
-                    PlayerExtraDeckText[index] = (CardName + " x" + (++CardNumber).ToString());
+                    PlayerExtraDeckText[index] = ((CardName == string.Empty ? "UNKNOW CARD" : CardName) + " x" + (++CardNumber).ToString());
                 }
                 else
                 {
