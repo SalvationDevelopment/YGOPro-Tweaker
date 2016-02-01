@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace YGOPro_Tweaker
@@ -25,7 +23,7 @@ namespace YGOPro_Tweaker
         {
             //Set URL to Link Label
             LinkLabel.Link link = new LinkLabel.Link();
-            link.LinkData = "https://bitbucket.org/ekaomk/ygopro-tweaker";
+            link.LinkData = "https://github.com/ekaomk/YGOPro-Tweaker";
             llbLink.Links.Add(link);
 
             switch (currentLanguage)

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 
 using System.Data.SQLite;
@@ -135,6 +134,8 @@ namespace YGOPro_Tweaker
                     lbPlayer.Text = String.Format(thaiLanguage.Player_Text, "?");
                     lbDrawFor.Text = String.Format(thaiLanguage.Draw_For_Text, "?");
 
+                    cbIgnoreCardMissing.Text = thaiLanguage.Ignore_Card_Missing_Text;
+
                     this.Text = thaiLanguage.Title;
                     break;
                 default: break;
@@ -169,10 +170,10 @@ namespace YGOPro_Tweaker
         {
             PlayerOneName = Replay.ExtractName(Replay.ReadString(40));
             PlayerTwoName = Replay.ExtractName(Replay.ReadString(40));
-            if (!Replay.SingleMode) //tag, 1vs2, etc
+            if (!Replay.SingleMode) //tag, etc
             {
-                PlayerThreeName = Replay.ExtractName(Replay.ReadString(40));
                 PlayerFourName = Replay.ExtractName(Replay.ReadString(40));
+                PlayerThreeName = Replay.ExtractName(Replay.ReadString(40));
             }
             StartLP = Replay.DataReader.ReadInt32();
             StartHand = Replay.DataReader.ReadInt32();
@@ -214,7 +215,7 @@ namespace YGOPro_Tweaker
             {
                 string CardID = Replay.DataReader.ReadInt32().ToString(System.Globalization.CultureInfo.InvariantCulture);
                 string CardName = GetCardName(Convert.ToInt32(CardID));
-                if (CardName == "")
+                if (CardName == "" && !cbIgnoreCardMissing.Checked)
                 {
                     MessageBox.Show(String.Format(Replay_Error_Text, Environment.NewLine, CardID.ToString()
                         ), Error_Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -230,7 +231,8 @@ namespace YGOPro_Tweaker
                     int CardNumber = Convert.ToInt32(PlayerMainDeckText[index].Substring(PlayerMainDeckText[index].Length - 1, 1));
 
                     CardNumber++;
-                    PlayerMainDeckText[index] = (CardName + " x" + CardNumber.ToString());
+
+                    PlayerMainDeckText[index] = ((CardName == string.Empty ? "UNKNOW CARD": CardName) + " x" + CardNumber.ToString());
                 }
                 else
                 {
@@ -246,7 +248,7 @@ namespace YGOPro_Tweaker
             {
                 string CardID = Replay.DataReader.ReadInt32().ToString(System.Globalization.CultureInfo.InvariantCulture);
                 string CardName = GetCardName(Convert.ToInt32(CardID));
-                if (CardName == "")
+                if (CardName == "" && !cbIgnoreCardMissing.Checked)
                 {
                     MessageBox.Show(String.Format(Replay_Error_Text, Environment.NewLine, CardID.ToString()
                         ), Error_Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -260,7 +262,7 @@ namespace YGOPro_Tweaker
                 {
                     int CardNumber = Convert.ToInt32(PlayerExtraDeckText[index].Substring(PlayerExtraDeckText[index].Length - 1, 1));
 
-                    PlayerExtraDeckText[index] = (CardName + " x" + (++CardNumber).ToString());
+                    PlayerExtraDeckText[index] = ((CardName == string.Empty ? "UNKNOW CARD" : CardName) + " x" + (++CardNumber).ToString());
                 }
                 else
                 {
@@ -324,7 +326,7 @@ namespace YGOPro_Tweaker
         private void btnLoadDeck_Click(object sender, EventArgs e)
         {
             OpenFileDialog OFD = new OpenFileDialog();
-            OFD.InitialDirectory = Application.StartupPath;
+            OFD.InitialDirectory = Application.StartupPath + "\\replay";
             OFD.Filter = "YGOPro Replay Files (*.yrp)|*.yrp|All files (*.*)|*.*";
             OFD.FilterIndex = 1;
             OFD.RestoreDirectory = true;
@@ -374,28 +376,18 @@ namespace YGOPro_Tweaker
             btnCopyDeckListPlayerOne.Text = String.Format(Copy_Deck_List_Text, PlayerOneName);
             btnSaveDeckListPlayerOne.Text = String.Format(Save_Deck_List_Text, PlayerOneName);
 
+            PlayerMainDeck.Clear();
+            PlayerExtraDeck.Clear();
 
+            ReadDeck(PlayerTwoDeck);
+            listPlayerTwoDeckList.Items.Add(String.Format(Deck_Owner_Text, PlayerTwoName));
+            listPlayerTwoDeckList.Items.Add(Main_Deck_Title);
+            listPlayerTwoDeckList.Items.AddRange(PlayerMainDeckText.ToArray());
+            listPlayerTwoDeckList.Items.Add(Extra_Deck_Title);
+            listPlayerTwoDeckList.Items.AddRange(PlayerExtraDeckText.ToArray());
 
-            if (!PlayerTwoName.Trim().Equals(string.Empty)) //if not 1vs2 mode
-            {
-                PlayerMainDeck.Clear();
-                PlayerExtraDeck.Clear();
-
-                ReadDeck(PlayerTwoDeck);
-                listPlayerTwoDeckList.Items.Add(String.Format(Deck_Owner_Text, PlayerTwoName));
-                listPlayerTwoDeckList.Items.Add(Main_Deck_Title);
-                listPlayerTwoDeckList.Items.AddRange(PlayerMainDeckText.ToArray());
-                listPlayerTwoDeckList.Items.Add(Extra_Deck_Title);
-                listPlayerTwoDeckList.Items.AddRange(PlayerExtraDeckText.ToArray());
-
-                btnCopyDeckListPlayerTwo.Text = String.Format(Copy_Deck_List_Text, PlayerTwoName);
-                btnSaveDeckListPlayerTwo.Text = String.Format(Save_Deck_List_Text, PlayerTwoName);
-
-            }
-            else
-            {
-                ReadDeck(new StringBuilder());
-            }
+            btnCopyDeckListPlayerTwo.Text = String.Format(Copy_Deck_List_Text, PlayerTwoName);
+            btnSaveDeckListPlayerTwo.Text = String.Format(Save_Deck_List_Text, PlayerTwoName);
 
             if (!Replay.SingleMode)
             {
@@ -519,13 +511,13 @@ namespace YGOPro_Tweaker
             {
                 // Configure save file dialog box
                 SaveFileDialog dlg = new SaveFileDialog();
+                dlg.InitialDirectory = Application.StartupPath + "\\deck";
                 dlg.FileName = "deck.ydk"; // Default file name
                 dlg.DefaultExt = ".ydk"; // Default file extension
                 dlg.Filter = "YGOPro Deck Files (.ydk)|*.ydk"; // Filter files by extension 
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    StringBuilder strb = new StringBuilder();
                     System.IO.File.WriteAllBytes(dlg.FileName, System.Text.Encoding.UTF8.GetBytes(PlayerOneDeck.ToString()));
                 }
             }
@@ -537,13 +529,13 @@ namespace YGOPro_Tweaker
             {
                 // Configure save file dialog box
                 SaveFileDialog dlg = new SaveFileDialog();
+                dlg.InitialDirectory = Application.StartupPath + "\\deck";
                 dlg.FileName = "deck.ydk"; // Default file name
                 dlg.DefaultExt = ".ydk"; // Default file extension
                 dlg.Filter = "YGOPro Deck Files (.ydk)|*.ydk"; // Filter files by extension 
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    StringBuilder strb = new StringBuilder();
                     System.IO.File.WriteAllBytes(dlg.FileName, System.Text.Encoding.UTF8.GetBytes(PlayerTwoDeck.ToString()));
                 }
             }
@@ -555,13 +547,13 @@ namespace YGOPro_Tweaker
             {
                 // Configure save file dialog box
                 SaveFileDialog dlg = new SaveFileDialog();
+                dlg.InitialDirectory = Application.StartupPath + "\\deck";
                 dlg.FileName = "deck.ydk"; // Default file name
                 dlg.DefaultExt = ".ydk"; // Default file extension
                 dlg.Filter = "YGOPro Deck Files (.ydk)|*.ydk"; // Filter files by extension 
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    StringBuilder strb = new StringBuilder();
                     System.IO.File.WriteAllBytes(dlg.FileName, System.Text.Encoding.UTF8.GetBytes(PlayerThreeDeck.ToString()));
                 }
             }
@@ -573,14 +565,13 @@ namespace YGOPro_Tweaker
             {
                 // Configure save file dialog box
                 SaveFileDialog dlg = new SaveFileDialog();
+                dlg.InitialDirectory = Application.StartupPath + "\\deck";
                 dlg.FileName = "deck.ydk"; // Default file name
                 dlg.DefaultExt = ".ydk"; // Default file extension
                 dlg.Filter = "YGOPro Deck Files (.ydk)|*.ydk"; // Filter files by extension 
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    StringBuilder strb = new StringBuilder();
-
                     System.IO.File.WriteAllBytes(dlg.FileName, System.Text.Encoding.UTF8.GetBytes(PlayerFourDeck.ToString()));
                 }
             }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Linq;
 using System.Text;
-//using System.Threading.Tasks;
 
 using System.IO;
 using System.Text.RegularExpressions;
@@ -40,7 +38,9 @@ namespace YGOPro_Tweaker
             mute_opponent,
             mute_spectators,
             volume,
-            background
+            background,
+            alignment_fix,
+            show_anime
         }
 
         public string readConfig(configVar config)
