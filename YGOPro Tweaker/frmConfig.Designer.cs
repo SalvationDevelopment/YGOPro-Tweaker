@@ -94,6 +94,15 @@
             this.gbScreenMode = new System.Windows.Forms.GroupBox();
             this.rbScreenSettingFullscreen = new System.Windows.Forms.RadioButton();
             this.rbScreenSettingWindowed = new System.Windows.Forms.RadioButton();
+            this.gbAlignmentFix = new System.Windows.Forms.GroupBox();
+            this.rbAlignmentFixEnable = new System.Windows.Forms.RadioButton();
+            this.rbAlignmentFixDisable = new System.Windows.Forms.RadioButton();
+            this.gbShowAnime = new System.Windows.Forms.GroupBox();
+            this.rbShowAnimeEnable = new System.Windows.Forms.RadioButton();
+            this.rbShowAnimeDisable = new System.Windows.Forms.RadioButton();
+            this.gbIgnoreInstantUpdates = new System.Windows.Forms.GroupBox();
+            this.rbIgnoreInstantUpdatesEnable = new System.Windows.Forms.RadioButton();
+            this.rbIgnoreInstantUpdatesDisable = new System.Windows.Forms.RadioButton();
             this.gbLanguage.SuspendLayout();
             this.gbDirect3D.SuspendLayout();
             this.gbSkin.SuspendLayout();
@@ -115,6 +124,9 @@
             this.gbBackground.SuspendLayout();
             this.gbAutoChainOrder.SuspendLayout();
             this.gbScreenMode.SuspendLayout();
+            this.gbAlignmentFix.SuspendLayout();
+            this.gbShowAnime.SuspendLayout();
+            this.gbIgnoreInstantUpdates.SuspendLayout();
             this.SuspendLayout();
             // 
             // rbEnglish
@@ -325,9 +337,9 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(448, 265);
+            this.btnSave.Location = new System.Drawing.Point(604, 264);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(135, 80);
+            this.btnSave.Size = new System.Drawing.Size(223, 26);
             this.btnSave.TabIndex = 19;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -443,7 +455,7 @@
             // 
             this.gbMusic.Controls.Add(this.rbMusicEnable);
             this.gbMusic.Controls.Add(this.rbMusicDisable);
-            this.gbMusic.Location = new System.Drawing.Point(292, 67);
+            this.gbMusic.Location = new System.Drawing.Point(448, 15);
             this.gbMusic.Name = "gbMusic";
             this.gbMusic.Size = new System.Drawing.Size(150, 46);
             this.gbMusic.TabIndex = 9;
@@ -476,7 +488,7 @@
             // 
             this.gbAutoCardPlacing.Controls.Add(this.rbAutoCardPlacingEnable);
             this.gbAutoCardPlacing.Controls.Add(this.rbAutoCardPlacingDisable);
-            this.gbAutoCardPlacing.Location = new System.Drawing.Point(292, 119);
+            this.gbAutoCardPlacing.Location = new System.Drawing.Point(292, 67);
             this.gbAutoCardPlacing.Name = "gbAutoCardPlacing";
             this.gbAutoCardPlacing.Size = new System.Drawing.Size(150, 46);
             this.gbAutoCardPlacing.TabIndex = 10;
@@ -509,7 +521,7 @@
             // 
             this.gbRandomCardPlacing.Controls.Add(this.rbRandomCardPlacingEnable);
             this.gbRandomCardPlacing.Controls.Add(this.rbRandomCardPlacingDisable);
-            this.gbRandomCardPlacing.Location = new System.Drawing.Point(292, 171);
+            this.gbRandomCardPlacing.Location = new System.Drawing.Point(448, 67);
             this.gbRandomCardPlacing.Name = "gbRandomCardPlacing";
             this.gbRandomCardPlacing.Size = new System.Drawing.Size(150, 46);
             this.gbRandomCardPlacing.TabIndex = 11;
@@ -542,7 +554,7 @@
             // 
             this.gbNoDelayForChain.Controls.Add(this.rbNoDelayForChainEnable);
             this.gbNoDelayForChain.Controls.Add(this.rbNoDelayForChainDisable);
-            this.gbNoDelayForChain.Location = new System.Drawing.Point(292, 275);
+            this.gbNoDelayForChain.Location = new System.Drawing.Point(448, 119);
             this.gbNoDelayForChain.Name = "gbNoDelayForChain";
             this.gbNoDelayForChain.Size = new System.Drawing.Size(150, 46);
             this.gbNoDelayForChain.TabIndex = 13;
@@ -575,7 +587,7 @@
             // 
             this.gbMuteOpponent.Controls.Add(this.rbMuteOpponentEnable);
             this.gbMuteOpponent.Controls.Add(this.rbMuteOpponentDisable);
-            this.gbMuteOpponent.Location = new System.Drawing.Point(292, 327);
+            this.gbMuteOpponent.Location = new System.Drawing.Point(292, 171);
             this.gbMuteOpponent.Name = "gbMuteOpponent";
             this.gbMuteOpponent.Size = new System.Drawing.Size(150, 46);
             this.gbMuteOpponent.TabIndex = 14;
@@ -608,7 +620,7 @@
             // 
             this.gbMuteSpectators.Controls.Add(this.rbMuteSpectatorsEnable);
             this.gbMuteSpectators.Controls.Add(this.rbMuteSpectatorsDisable);
-            this.gbMuteSpectators.Location = new System.Drawing.Point(292, 379);
+            this.gbMuteSpectators.Location = new System.Drawing.Point(448, 171);
             this.gbMuteSpectators.Name = "gbMuteSpectators";
             this.gbMuteSpectators.Size = new System.Drawing.Size(150, 46);
             this.gbMuteSpectators.TabIndex = 15;
@@ -641,9 +653,9 @@
             // 
             this.gbVolume.Controls.Add(this.lbVolume);
             this.gbVolume.Controls.Add(this.trackVolume);
-            this.gbVolume.Location = new System.Drawing.Point(448, 67);
+            this.gbVolume.Location = new System.Drawing.Point(604, 67);
             this.gbVolume.Name = "gbVolume";
-            this.gbVolume.Size = new System.Drawing.Size(274, 71);
+            this.gbVolume.Size = new System.Drawing.Size(223, 71);
             this.gbVolume.TabIndex = 17;
             this.gbVolume.TabStop = false;
             this.gbVolume.Text = "Volume";
@@ -651,7 +663,7 @@
             // lbVolume
             // 
             this.lbVolume.AutoSize = true;
-            this.lbVolume.Location = new System.Drawing.Point(241, 33);
+            this.lbVolume.Location = new System.Drawing.Point(197, 33);
             this.lbVolume.Name = "lbVolume";
             this.lbVolume.Size = new System.Drawing.Size(13, 13);
             this.lbVolume.TabIndex = 4;
@@ -662,7 +674,7 @@
             this.trackVolume.Location = new System.Drawing.Point(6, 19);
             this.trackVolume.Maximum = 100;
             this.trackVolume.Name = "trackVolume";
-            this.trackVolume.Size = new System.Drawing.Size(229, 45);
+            this.trackVolume.Size = new System.Drawing.Size(185, 45);
             this.trackVolume.TabIndex = 0;
             this.trackVolume.TickFrequency = 10;
             this.trackVolume.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -674,9 +686,9 @@
             this.gbBackground.Controls.Add(this.rbBackGroundOption2);
             this.gbBackground.Controls.Add(this.rbBackGroundOption1);
             this.gbBackground.Controls.Add(this.rbBackGroundOption0);
-            this.gbBackground.Location = new System.Drawing.Point(448, 141);
+            this.gbBackground.Location = new System.Drawing.Point(604, 141);
             this.gbBackground.Name = "gbBackground";
-            this.gbBackground.Size = new System.Drawing.Size(274, 118);
+            this.gbBackground.Size = new System.Drawing.Size(223, 118);
             this.gbBackground.TabIndex = 18;
             this.gbBackground.TabStop = false;
             this.gbBackground.Text = "Background";
@@ -727,9 +739,9 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(587, 265);
+            this.btnReset.Location = new System.Drawing.Point(604, 296);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(135, 80);
+            this.btnReset.Size = new System.Drawing.Size(223, 26);
             this.btnReset.TabIndex = 20;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
@@ -737,9 +749,9 @@
             // 
             // btnLoadDefault
             // 
-            this.btnLoadDefault.Location = new System.Drawing.Point(448, 351);
+            this.btnLoadDefault.Location = new System.Drawing.Point(604, 328);
             this.btnLoadDefault.Name = "btnLoadDefault";
-            this.btnLoadDefault.Size = new System.Drawing.Size(274, 80);
+            this.btnLoadDefault.Size = new System.Drawing.Size(223, 28);
             this.btnLoadDefault.TabIndex = 21;
             this.btnLoadDefault.Text = "Load Default Config";
             this.btnLoadDefault.UseVisualStyleBackColor = true;
@@ -749,7 +761,7 @@
             // 
             this.gbAutoChainOrder.Controls.Add(this.rbAutoChainOrderEnable);
             this.gbAutoChainOrder.Controls.Add(this.rbAutoChainOrderDisable);
-            this.gbAutoChainOrder.Location = new System.Drawing.Point(292, 223);
+            this.gbAutoChainOrder.Location = new System.Drawing.Point(292, 119);
             this.gbAutoChainOrder.Name = "gbAutoChainOrder";
             this.gbAutoChainOrder.Size = new System.Drawing.Size(150, 46);
             this.gbAutoChainOrder.TabIndex = 12;
@@ -782,9 +794,9 @@
             // 
             this.gbScreenMode.Controls.Add(this.rbScreenSettingFullscreen);
             this.gbScreenMode.Controls.Add(this.rbScreenSettingWindowed);
-            this.gbScreenMode.Location = new System.Drawing.Point(448, 15);
+            this.gbScreenMode.Location = new System.Drawing.Point(604, 15);
             this.gbScreenMode.Name = "gbScreenMode";
-            this.gbScreenMode.Size = new System.Drawing.Size(274, 46);
+            this.gbScreenMode.Size = new System.Drawing.Size(223, 46);
             this.gbScreenMode.TabIndex = 16;
             this.gbScreenMode.TabStop = false;
             this.gbScreenMode.Text = "Screen Mode";
@@ -811,11 +823,113 @@
             this.rbScreenSettingWindowed.Text = "Windowed Mode";
             this.rbScreenSettingWindowed.UseVisualStyleBackColor = true;
             // 
+            // gbAlignmentFix
+            // 
+            this.gbAlignmentFix.Controls.Add(this.rbAlignmentFixEnable);
+            this.gbAlignmentFix.Controls.Add(this.rbAlignmentFixDisable);
+            this.gbAlignmentFix.Location = new System.Drawing.Point(292, 223);
+            this.gbAlignmentFix.Name = "gbAlignmentFix";
+            this.gbAlignmentFix.Size = new System.Drawing.Size(150, 46);
+            this.gbAlignmentFix.TabIndex = 22;
+            this.gbAlignmentFix.TabStop = false;
+            this.gbAlignmentFix.Text = "Alignment Fix";
+            // 
+            // rbAlignmentFixEnable
+            // 
+            this.rbAlignmentFixEnable.AutoSize = true;
+            this.rbAlignmentFixEnable.Location = new System.Drawing.Point(6, 19);
+            this.rbAlignmentFixEnable.Name = "rbAlignmentFixEnable";
+            this.rbAlignmentFixEnable.Size = new System.Drawing.Size(58, 17);
+            this.rbAlignmentFixEnable.TabIndex = 1;
+            this.rbAlignmentFixEnable.TabStop = true;
+            this.rbAlignmentFixEnable.Text = "Enable";
+            this.rbAlignmentFixEnable.UseVisualStyleBackColor = true;
+            // 
+            // rbAlignmentFixDisable
+            // 
+            this.rbAlignmentFixDisable.AutoSize = true;
+            this.rbAlignmentFixDisable.Location = new System.Drawing.Point(71, 19);
+            this.rbAlignmentFixDisable.Name = "rbAlignmentFixDisable";
+            this.rbAlignmentFixDisable.Size = new System.Drawing.Size(60, 17);
+            this.rbAlignmentFixDisable.TabIndex = 1;
+            this.rbAlignmentFixDisable.TabStop = true;
+            this.rbAlignmentFixDisable.Text = "Disable";
+            this.rbAlignmentFixDisable.UseVisualStyleBackColor = true;
+            // 
+            // gbShowAnime
+            // 
+            this.gbShowAnime.Controls.Add(this.rbShowAnimeEnable);
+            this.gbShowAnime.Controls.Add(this.rbShowAnimeDisable);
+            this.gbShowAnime.Location = new System.Drawing.Point(448, 223);
+            this.gbShowAnime.Name = "gbShowAnime";
+            this.gbShowAnime.Size = new System.Drawing.Size(150, 46);
+            this.gbShowAnime.TabIndex = 23;
+            this.gbShowAnime.TabStop = false;
+            this.gbShowAnime.Text = "Show Anime";
+            // 
+            // rbShowAnimeEnable
+            // 
+            this.rbShowAnimeEnable.AutoSize = true;
+            this.rbShowAnimeEnable.Location = new System.Drawing.Point(6, 19);
+            this.rbShowAnimeEnable.Name = "rbShowAnimeEnable";
+            this.rbShowAnimeEnable.Size = new System.Drawing.Size(58, 17);
+            this.rbShowAnimeEnable.TabIndex = 1;
+            this.rbShowAnimeEnable.TabStop = true;
+            this.rbShowAnimeEnable.Text = "Enable";
+            this.rbShowAnimeEnable.UseVisualStyleBackColor = true;
+            // 
+            // rbShowAnimeDisable
+            // 
+            this.rbShowAnimeDisable.AutoSize = true;
+            this.rbShowAnimeDisable.Location = new System.Drawing.Point(71, 19);
+            this.rbShowAnimeDisable.Name = "rbShowAnimeDisable";
+            this.rbShowAnimeDisable.Size = new System.Drawing.Size(60, 17);
+            this.rbShowAnimeDisable.TabIndex = 1;
+            this.rbShowAnimeDisable.TabStop = true;
+            this.rbShowAnimeDisable.Text = "Disable";
+            this.rbShowAnimeDisable.UseVisualStyleBackColor = true;
+            // 
+            // gbIgnoreInstantUpdates
+            // 
+            this.gbIgnoreInstantUpdates.Controls.Add(this.rbIgnoreInstantUpdatesEnable);
+            this.gbIgnoreInstantUpdates.Controls.Add(this.rbIgnoreInstantUpdatesDisable);
+            this.gbIgnoreInstantUpdates.Location = new System.Drawing.Point(292, 275);
+            this.gbIgnoreInstantUpdates.Name = "gbIgnoreInstantUpdates";
+            this.gbIgnoreInstantUpdates.Size = new System.Drawing.Size(150, 46);
+            this.gbIgnoreInstantUpdates.TabIndex = 23;
+            this.gbIgnoreInstantUpdates.TabStop = false;
+            this.gbIgnoreInstantUpdates.Text = "Ignore Instant Updates";
+            // 
+            // rbIgnoreInstantUpdatesEnable
+            // 
+            this.rbIgnoreInstantUpdatesEnable.AutoSize = true;
+            this.rbIgnoreInstantUpdatesEnable.Location = new System.Drawing.Point(6, 19);
+            this.rbIgnoreInstantUpdatesEnable.Name = "rbIgnoreInstantUpdatesEnable";
+            this.rbIgnoreInstantUpdatesEnable.Size = new System.Drawing.Size(58, 17);
+            this.rbIgnoreInstantUpdatesEnable.TabIndex = 1;
+            this.rbIgnoreInstantUpdatesEnable.TabStop = true;
+            this.rbIgnoreInstantUpdatesEnable.Text = "Enable";
+            this.rbIgnoreInstantUpdatesEnable.UseVisualStyleBackColor = true;
+            // 
+            // rbIgnoreInstantUpdatesDisable
+            // 
+            this.rbIgnoreInstantUpdatesDisable.AutoSize = true;
+            this.rbIgnoreInstantUpdatesDisable.Location = new System.Drawing.Point(71, 19);
+            this.rbIgnoreInstantUpdatesDisable.Name = "rbIgnoreInstantUpdatesDisable";
+            this.rbIgnoreInstantUpdatesDisable.Size = new System.Drawing.Size(60, 17);
+            this.rbIgnoreInstantUpdatesDisable.TabIndex = 1;
+            this.rbIgnoreInstantUpdatesDisable.TabStop = true;
+            this.rbIgnoreInstantUpdatesDisable.Text = "Disable";
+            this.rbIgnoreInstantUpdatesDisable.UseVisualStyleBackColor = true;
+            // 
             // frmConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(741, 461);
+            this.ClientSize = new System.Drawing.Size(838, 463);
+            this.Controls.Add(this.gbIgnoreInstantUpdates);
+            this.Controls.Add(this.gbShowAnime);
+            this.Controls.Add(this.gbAlignmentFix);
             this.Controls.Add(this.gbAutoChainOrder);
             this.Controls.Add(this.btnLoadDefault);
             this.Controls.Add(this.gbVolume);
@@ -885,6 +999,12 @@
             this.gbAutoChainOrder.PerformLayout();
             this.gbScreenMode.ResumeLayout(false);
             this.gbScreenMode.PerformLayout();
+            this.gbAlignmentFix.ResumeLayout(false);
+            this.gbAlignmentFix.PerformLayout();
+            this.gbShowAnime.ResumeLayout(false);
+            this.gbShowAnime.PerformLayout();
+            this.gbIgnoreInstantUpdates.ResumeLayout(false);
+            this.gbIgnoreInstantUpdates.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -956,7 +1076,15 @@
         private System.Windows.Forms.GroupBox gbScreenMode;
         private System.Windows.Forms.RadioButton rbScreenSettingFullscreen;
         private System.Windows.Forms.RadioButton rbScreenSettingWindowed;
-
+        private System.Windows.Forms.GroupBox gbAlignmentFix;
+        private System.Windows.Forms.RadioButton rbAlignmentFixEnable;
+        private System.Windows.Forms.RadioButton rbAlignmentFixDisable;
+        private System.Windows.Forms.GroupBox gbShowAnime;
+        private System.Windows.Forms.RadioButton rbShowAnimeEnable;
+        private System.Windows.Forms.RadioButton rbShowAnimeDisable;
+        private System.Windows.Forms.GroupBox gbIgnoreInstantUpdates;
+        private System.Windows.Forms.RadioButton rbIgnoreInstantUpdatesEnable;
+        private System.Windows.Forms.RadioButton rbIgnoreInstantUpdatesDisable;
     }
 }
 

@@ -132,6 +132,15 @@ namespace YGOPro_Tweaker
                 case "2": { rbBackGroundOption2.Checked = true; break; }
                 case "3": { rbBackGroundOption3.Checked = true; break; }
             }
+            //Read Alignment Fix Config
+            if (_CConf.readConfig(CConf.configVar.alignment_fix).Equals("0")) { rbAlignmentFixDisable.Checked = true; }
+            else { rbAlignmentFixEnable.Checked = true; }
+            //Read Show Anime Config
+            if (_CConf.readConfig(CConf.configVar.show_anime).Equals("0")) { rbShowAnimeDisable.Checked = true; }
+            else { rbShowAnimeEnable.Checked = true; }
+            //Read Ignore Instant Updates Config
+            if (_CConf.readConfig(CConf.configVar.ignore_instant_updates).Equals("0")) { rbIgnoreInstantUpdatesDisable.Checked = true; }
+            else { rbIgnoreInstantUpdatesEnable.Checked = true; }
         }
 
         private void saveConfig()
@@ -296,6 +305,34 @@ namespace YGOPro_Tweaker
             else if (rbDirect3DDisable.Checked)
             {
                 _CConf.writeConfig(CConf.configVar.use_d3d, "0");
+            }
+
+            //Save Alignment Fix Config
+            if (rbAlignmentFixEnable.Checked)
+            {
+                _CConf.writeConfig(CConf.configVar.alignment_fix, "1");
+            }
+            else if (rbAlignmentFixDisable.Checked)
+            {
+                _CConf.writeConfig(CConf.configVar.alignment_fix, "0");
+            }
+            //Save Show Anime Config
+            if (rbShowAnimeEnable.Checked)
+            {
+                _CConf.writeConfig(CConf.configVar.show_anime, "1");
+            }
+            else if (rbShowAnimeDisable.Checked)
+            {
+                _CConf.writeConfig(CConf.configVar.show_anime, "0");
+            }
+            //Save Ignore Instant Updates Config
+            if (rbIgnoreInstantUpdatesEnable.Checked)
+            {
+                _CConf.writeConfig(CConf.configVar.ignore_instant_updates, "1");
+            }
+            else if (rbIgnoreInstantUpdatesDisable.Checked)
+            {
+                _CConf.writeConfig(CConf.configVar.ignore_instant_updates, "0");
             }
         }
 

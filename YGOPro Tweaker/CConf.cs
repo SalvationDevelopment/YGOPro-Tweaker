@@ -40,7 +40,8 @@ namespace YGOPro_Tweaker
             volume,
             background,
             alignment_fix,
-            show_anime
+            show_anime,
+            ignore_instant_updates
         }
 
         public string readConfig(configVar config)
