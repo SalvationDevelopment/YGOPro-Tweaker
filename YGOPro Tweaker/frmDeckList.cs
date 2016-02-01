@@ -12,48 +12,14 @@ namespace YGOPro_Tweaker
 {
     public partial class frmDeckList : Form
     {
-        int currentLanguage = 0; //0 = English, 1 = Thai
-        public frmDeckList(int Lenguage)
+        public frmDeckList()
         {
             InitializeComponent();
-            currentLanguage = Lenguage;
         }
 
         private void frmDeckList_Load(object sender, EventArgs e)
         {
-            switch (currentLanguage)
-            {
-                case 0: //English
-                    CLanguage.DeckList.English englishLanguage = new CLanguage.DeckList.English();
-                    Main_Deck_Text = englishLanguage.Main_Deck_Title;
-                    Extra_Deck_Text = englishLanguage.Extra_Deck_Title;
-                    Side_Deck_Text = englishLanguage.Side_Deck_Title;
-                    Error_Text = englishLanguage.Error_Text;
-                    Deck_Error_Text = englishLanguage.Deck_Error_Text;
-                    Load_Deck_Text = englishLanguage.Load_Deck_Text;
-                    Copy_To_Clipboard_Text = englishLanguage.Copy_To_Clipboard_Text;
-                    Copied_To_Clipboard_Text = englishLanguage.Copied_To_Clipboard_Text;
-                    Information_Text = englishLanguage.Information_Text;
-                    this.Text = englishLanguage.Title;
-                    break;
-                case 1: //Thai
-                    CLanguage.DeckList.Thai thaiLanguage = new CLanguage.DeckList.Thai();
-                    Main_Deck_Text = thaiLanguage.Main_Deck_Title;
-                    Extra_Deck_Text = thaiLanguage.Extra_Deck_Title;
-                    Side_Deck_Text = thaiLanguage.Side_Deck_Title;
-                    Error_Text = thaiLanguage.Error_Text;
-                    Deck_Error_Text = thaiLanguage.Deck_Error_Text;
-                    Load_Deck_Text = thaiLanguage.Load_Deck_Text;
-                    Copy_To_Clipboard_Text = thaiLanguage.Copy_To_Clipboard_Text;
-                    Copied_To_Clipboard_Text = thaiLanguage.Copied_To_Clipboard_Text;
-                    Information_Text = thaiLanguage.Information_Text;
-                    this.Text = thaiLanguage.Title;
-                    break;
-                default: break;
-            }
             pbCard.ImageLocation = Application.StartupPath + "\\textures\\cover.jpg";
-            btnLoadDeck.Text = Load_Deck_Text;
-            btnCopyToClipboard.Text = Copy_To_Clipboard_Text;
         }
 
         string createdBy = string.Empty;
@@ -66,17 +32,6 @@ namespace YGOPro_Tweaker
         List<string> PlayerExtraDeckText = new List<string>();
         List<string> PlayerSideDeckText = new List<string>();
         //////////////////////////////////////////////////////
-        string Deck_Error_Text = string.Empty;
-        string Error_Text = string.Empty;
-
-        string Load_Deck_Text = string.Empty;
-        string Copy_To_Clipboard_Text = string.Empty;
-        string Copied_To_Clipboard_Text = string.Empty;
-        string Information_Text = string.Empty;
-
-        string Main_Deck_Text = string.Empty;
-        string Extra_Deck_Text = string.Empty;
-        string Side_Deck_Text = string.Empty;
 
         private void btnLoadDeck_Click(object sender, EventArgs e)
         {
@@ -108,9 +63,9 @@ namespace YGOPro_Tweaker
 
         private void printList()
         {
-            mainDeck.Insert(0, new cardData(-1, String.Format(Main_Deck_Text, PlayerMainDeck.Count.ToString())));
-            extraDeck.Insert(0, new cardData(-2, String.Format(Extra_Deck_Text, PlayerExtraDeck.Count.ToString())));
-            sideDeck.Insert(0, new cardData(-3, String.Format(Side_Deck_Text, PlayerSideDeck.Count.ToString())));
+            mainDeck.Insert(0, new cardData(-1, String.Format("============ Main Deck ============", PlayerMainDeck.Count.ToString())));
+            extraDeck.Insert(0, new cardData(-2, String.Format("============ Extra Deck ============", PlayerExtraDeck.Count.ToString())));
+            sideDeck.Insert(0, new cardData(-3, String.Format("============ Side Deck ============", PlayerSideDeck.Count.ToString())));
 
             allCard = new List<cardData>();
             allCard.AddRange(mainDeck);
@@ -164,7 +119,7 @@ namespace YGOPro_Tweaker
                 string CardName = GetCardName(Convert.ToInt32(CardID));
                 if (CardName == "")
                 {
-                    MessageBox.Show(String.Format(Deck_Error_Text, Environment.NewLine, CardID.ToString()
+                    MessageBox.Show(String.Format("Deck is invalid or old version. Program can not find card from ID.{0}Card ID : {1}", Environment.NewLine, CardID.ToString()
                         ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     continue;
                 }
@@ -247,6 +202,7 @@ namespace YGOPro_Tweaker
 
         private string GetCardName(int CardID)
         {
+            // Normal
             using (var conn = new SQLiteConnection(@"Data Source=cards.cdb"))
             using (var cmd = conn.CreateCommand())
             {
@@ -261,6 +217,25 @@ namespace YGOPro_Tweaker
                         return CardName;
                     }
                 }
+                conn.Close();
+            }
+
+            // Expansions
+            using (var conn = new SQLiteConnection(@"Data Source=expansions\live\prerelease.cdb"))
+            using (var cmd = conn.CreateCommand())
+            {
+                try { conn.Open(); } catch { return string.Empty; }
+                cmd.CommandText = "SELECT name FROM texts WHERE id LIKE @CardID";
+                cmd.Parameters.Add(new SQLiteParameter("@CardID", CardID));
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string CardName = reader.GetString(reader.GetOrdinal("name"));
+                        return CardName;
+                    }
+                }
+                conn.Close();
             }
             return string.Empty;
         }
@@ -270,7 +245,7 @@ namespace YGOPro_Tweaker
             if (allCard.Count > 0)
             {
                 Clipboard.SetText(getListString());
-                MessageBox.Show(Copied_To_Clipboard_Text, Information_Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Copied To Clipboard.", "Infomation", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

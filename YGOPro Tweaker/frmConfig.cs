@@ -17,12 +17,9 @@ namespace YGOPro_Tweaker
         string fullVarlue = string.Empty;
         string[] splitValue = { };
 
-        int currentLanguage = 0; //0 = English, 1 = Thai
-
-        public frmConfig(int Lenguage)
+        public frmConfig()
         {
             InitializeComponent();
-            currentLanguage = Lenguage;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -55,83 +52,8 @@ namespace YGOPro_Tweaker
         {
             //First Load
             loadConfig();
-            switch (currentLanguage)
-            {
-                case 0: setEnglishLanguage(); break;
-                case 1: setThaiLanguage(); break;
-                default: break;
-            }
         }
 
-        private void setEnglishLanguage()
-        {
-            CLanguage.Config.English configEnglish = new CLanguage.Config.English();
-            this.Text = configEnglish.Title;
-        }
-
-        private void setThaiLanguage()
-        {
-            CLanguage.Config.Thai configThai = new CLanguage.Config.Thai();
-            this.Text = configThai.Title;
-            //////////////////////////////////////
-            gbLanguage.Text = configThai.Language;
-            rbEnglish.Text = configThai.English;
-            rbGerman.Text = configThai.German;
-            rbSpanish.Text = configThai.Spanish;
-            rbThai.Text = configThai._Thai;
-            gbDirect3D.Text = configThai.Direct3D;
-            rbDirect3DEnable.Text = configThai.Enable;
-            rbDirect3DDisable.Text = configThai.Disable;
-            gbSkin.Text = configThai.Skin;
-            rbSkinEnable.Text = configThai.Enable;
-            rbSkinDisable.Text = configThai.Disable;
-            gbAntiAliasing.Text = configThai.Anti_aliasing;
-            gbErrorLog.Text = configThai.Error_Log;
-            rbErrorLogEnable.Text = configThai.Enable;
-            rbErrorLogDisable.Text = configThai.Disable;
-            gbNickName.Text = configThai.Nickname;
-            gbTextFont.Text = configThai.Text_Font;
-            lbTextFontPath.Text = configThai.Font_Path;
-            lbTextFontSize.Text = configThai.Font_Size;
-            gbNumberFont.Text = configThai.Number_Font;
-            lbNumberFontPath.Text = configThai.Font_Path;
-            gbScreenMode.Text = configThai.Fullscreen;
-            rbScreenSettingFullscreen.Text = configThai.FullscreenMode;
-            rbScreenSettingWindowed.Text = configThai.WindowedMode;
-            gbSound.Text = configThai.Sound;
-            rbSoundEnable.Text = configThai.Enable;
-            rbSoundDisable.Text = configThai.Disable;
-            gbMusic.Text = configThai.Music;
-            rbMusicEnable.Text = configThai.Enable;
-            rbMusicDisable.Text = configThai.Disable;
-            gbAutoCardPlacing.Text = configThai.Auto_Card_Placing;
-            rbAutoCardPlacingEnable.Text = configThai.Enable;
-            rbAutoCardPlacingDisable.Text = configThai.Disable;
-            gbRandomCardPlacing.Text = configThai.Random_Card_Placing;
-            rbRandomCardPlacingEnable.Text = configThai.Enable;
-            rbRandomCardPlacingDisable.Text = configThai.Disable;
-            gbAutoChainOrder.Text = configThai.Auto_Chain_Order;
-            rbAutoChainOrderEnable.Text = configThai.Enable;
-            rbAutoChainOrderDisable.Text = configThai.Disable;
-            gbNoDelayForChain.Text = configThai.No_Delay_For_Chain;
-            rbNoDelayForChainEnable.Text = configThai.Enable;
-            rbNoDelayForChainDisable.Text = configThai.Disable;
-            gbMuteOpponent.Text = configThai.Mute_Opponent;
-            rbMuteOpponentEnable.Text = configThai.Enable;
-            rbMuteOpponentDisable.Text = configThai.Disable;
-            gbMuteSpectators.Text = configThai.Mute_Spectators;
-            rbMuteSpectatorsEnable.Text = configThai.Enable;
-            rbMuteSpectatorsDisable.Text = configThai.Disable;
-            gbVolume.Text = configThai.Volume;
-            gbBackground.Text = configThai.Background;
-            rbBackGroundOption0.Text = configThai.Duel_Zone_Only;
-            rbBackGroundOption1.Text = configThai.Background_Only;
-            rbBackGroundOption2.Text = configThai.Both_Duel_Zone_And_Background;
-            rbBackGroundOption3.Text = configThai.Do_Not_Change_Background;
-            btnSave.Text = configThai.Save;
-            btnReset.Text = configThai.Reset;
-            btnLoadDefault.Text = configThai.Load_Default_Config;
-        }
 
         private void loadConfig()
         {
