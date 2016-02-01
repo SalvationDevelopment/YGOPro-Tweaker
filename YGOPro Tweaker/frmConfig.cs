@@ -62,10 +62,6 @@ namespace YGOPro_Tweaker
             {
                 case "en":
                     { rbEnglish.Checked = true; break; }
-                case "de":
-                    { rbGerman.Checked = true; break; }
-                case "es":
-                    { rbSpanish.Checked = true; break; }
                 case "th":
                     { rbThai.Checked = true; break; }
             }
@@ -124,14 +120,6 @@ namespace YGOPro_Tweaker
             int Volume = Convert.ToInt16(_CConf.readConfig(CConf.configVar.volume));
             trackVolume.Value = Volume;
             lbVolume.Text = Volume.ToString();
-            //Read Background Config
-            switch (_CConf.readConfig(CConf.configVar.background))
-            {
-                case "0": { rbBackGroundOption0.Checked = true; break; }
-                case "1": { rbBackGroundOption1.Checked = true; break; }
-                case "2": { rbBackGroundOption2.Checked = true; break; }
-                case "3": { rbBackGroundOption3.Checked = true; break; }
-            }
             //Read Alignment Fix Config
             if (_CConf.readConfig(CConf.configVar.alignment_fix).Equals("0")) { rbAlignmentFixDisable.Checked = true; }
             else { rbAlignmentFixEnable.Checked = true; }
@@ -149,14 +137,6 @@ namespace YGOPro_Tweaker
             if (rbEnglish.Checked)
             {
                 _CConf.writeConfig(CConf.configVar.language, "en");
-            }
-            else if (rbGerman.Checked)
-            {
-                _CConf.writeConfig(CConf.configVar.language, "de");
-            }
-            else if (rbSpanish.Checked)
-            {
-                _CConf.writeConfig(CConf.configVar.language, "es");
             }
             else if (rbThai.Checked)
             {
@@ -280,23 +260,6 @@ namespace YGOPro_Tweaker
             }
             //Save Volume Config
             _CConf.writeConfig(CConf.configVar.volume, trackVolume.Value.ToString());
-            //Save Background Config
-            if (rbBackGroundOption0.Checked)
-            {
-                _CConf.writeConfig(CConf.configVar.background, "0");
-            }
-            else if (rbBackGroundOption1.Checked)
-            {
-                _CConf.writeConfig(CConf.configVar.background, "1");
-            }
-            else if (rbBackGroundOption2.Checked)
-            {
-                _CConf.writeConfig(CConf.configVar.background, "2");
-            }
-            else if (rbBackGroundOption3.Checked)
-            {
-                _CConf.writeConfig(CConf.configVar.background, "3");
-            }
             //Save Direct3D Config
             if (rbDirect3DEnable.Checked)
             {
@@ -364,7 +327,7 @@ namespace YGOPro_Tweaker
             trackAntiAliasing.Value = 0;
             rbErrorLogEnable.Checked = true;
             txtNickName.Text = "Player";
-            txtTextFontPath.Text = "fonts/ARIALUNI.TTF";
+            txtTextFontPath.Text = "fonts/simhei.ttf";
             txtTextFontSize.Text = "14";
             txtNumberFontPath.Text = "fonts/arialbd.ttf";
             rbScreenSettingWindowed.Checked = true;
@@ -375,8 +338,10 @@ namespace YGOPro_Tweaker
             rbNoDelayForChainDisable.Checked = true;
             rbMuteOpponentDisable.Checked = true;
             rbMuteSpectatorsDisable.Checked = true;
+            rbAlignmentFixDisable.Checked = true;
+            rbShowAnimeEnable.Checked = true;
+            rbIgnoreInstantUpdatesDisable.Checked = true;
             trackVolume.Value = 25;
-            rbBackGroundOption0.Checked = true;
             MessageBox.Show("Default config has filled. You can save it safe now", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 

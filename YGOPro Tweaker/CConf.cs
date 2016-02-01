@@ -38,7 +38,6 @@ namespace YGOPro_Tweaker
             mute_opponent,
             mute_spectators,
             volume,
-            background,
             alignment_fix,
             show_anime,
             ignore_instant_updates
