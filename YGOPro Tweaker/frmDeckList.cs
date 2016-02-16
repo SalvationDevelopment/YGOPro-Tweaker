@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using System.Data.SQLite;
+using System.IO;
 
 namespace YGOPro_Tweaker
 {
@@ -221,21 +222,25 @@ namespace YGOPro_Tweaker
             }
 
             // Expansions
-            using (var conn = new SQLiteConnection(@"Data Source=expansions\live\prerelease.cdb"))
-            using (var cmd = conn.CreateCommand())
+            string[] expansionsDatabaseFileList = Directory.GetFiles(Application.StartupPath + @"\expansions\live\", "*.cdb", SearchOption.TopDirectoryOnly);
+            foreach (string exp in expansionsDatabaseFileList)
             {
-                try { conn.Open(); } catch { return string.Empty; }
-                cmd.CommandText = "SELECT name FROM texts WHERE id LIKE @CardID";
-                cmd.Parameters.Add(new SQLiteParameter("@CardID", CardID));
-                using (var reader = cmd.ExecuteReader())
+                using (var conn = new SQLiteConnection(@"Data Source=expansions\live\" + Path.GetFileName(exp))) 
+                using (var cmd = conn.CreateCommand())
                 {
-                    while (reader.Read())
+                    try { conn.Open(); } catch { return string.Empty; }
+                    cmd.CommandText = "SELECT name FROM texts WHERE id LIKE @CardID";
+                    cmd.Parameters.Add(new SQLiteParameter("@CardID", CardID));
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        string CardName = reader.GetString(reader.GetOrdinal("name"));
-                        return CardName;
+                        while (reader.Read())
+                        {
+                            string CardName = reader.GetString(reader.GetOrdinal("name"));
+                            return CardName;
+                        }
                     }
+                    conn.Close();
                 }
-                conn.Close();
             }
             return string.Empty;
         }
