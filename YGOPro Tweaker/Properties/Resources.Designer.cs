@@ -59,25 +59,5 @@ namespace YGOPro_Tweaker.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Thailand_Flag_icon {
-            get {
-                object obj = ResourceManager.GetObject("Thailand-Flag-icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap United_Kingdom_flag_icon {
-            get {
-                object obj = ResourceManager.GetObject("United-Kingdom-flag-icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

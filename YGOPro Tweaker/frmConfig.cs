@@ -17,12 +17,9 @@ namespace YGOPro_Tweaker
         string fullVarlue = string.Empty;
         string[] splitValue = { };
 
-        int currentLanguage = 0; //0 = English, 1 = Thai
-
-        public frmConfig(int Lenguage)
+        public frmConfig()
         {
             InitializeComponent();
-            currentLanguage = Lenguage;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -55,83 +52,8 @@ namespace YGOPro_Tweaker
         {
             //First Load
             loadConfig();
-            switch (currentLanguage)
-            {
-                case 0: setEnglishLanguage(); break;
-                case 1: setThaiLanguage(); break;
-                default: break;
-            }
         }
 
-        private void setEnglishLanguage()
-        {
-            CLanguage.Config.English configEnglish = new CLanguage.Config.English();
-            this.Text = configEnglish.Title;
-        }
-
-        private void setThaiLanguage()
-        {
-            CLanguage.Config.Thai configThai = new CLanguage.Config.Thai();
-            this.Text = configThai.Title;
-            //////////////////////////////////////
-            gbLanguage.Text = configThai.Language;
-            rbEnglish.Text = configThai.English;
-            rbGerman.Text = configThai.German;
-            rbSpanish.Text = configThai.Spanish;
-            rbThai.Text = configThai._Thai;
-            gbDirect3D.Text = configThai.Direct3D;
-            rbDirect3DEnable.Text = configThai.Enable;
-            rbDirect3DDisable.Text = configThai.Disable;
-            gbSkin.Text = configThai.Skin;
-            rbSkinEnable.Text = configThai.Enable;
-            rbSkinDisable.Text = configThai.Disable;
-            gbAntiAliasing.Text = configThai.Anti_aliasing;
-            gbErrorLog.Text = configThai.Error_Log;
-            rbErrorLogEnable.Text = configThai.Enable;
-            rbErrorLogDisable.Text = configThai.Disable;
-            gbNickName.Text = configThai.Nickname;
-            gbTextFont.Text = configThai.Text_Font;
-            lbTextFontPath.Text = configThai.Font_Path;
-            lbTextFontSize.Text = configThai.Font_Size;
-            gbNumberFont.Text = configThai.Number_Font;
-            lbNumberFontPath.Text = configThai.Font_Path;
-            gbScreenMode.Text = configThai.Fullscreen;
-            rbScreenSettingFullscreen.Text = configThai.FullscreenMode;
-            rbScreenSettingWindowed.Text = configThai.WindowedMode;
-            gbSound.Text = configThai.Sound;
-            rbSoundEnable.Text = configThai.Enable;
-            rbSoundDisable.Text = configThai.Disable;
-            gbMusic.Text = configThai.Music;
-            rbMusicEnable.Text = configThai.Enable;
-            rbMusicDisable.Text = configThai.Disable;
-            gbAutoCardPlacing.Text = configThai.Auto_Card_Placing;
-            rbAutoCardPlacingEnable.Text = configThai.Enable;
-            rbAutoCardPlacingDisable.Text = configThai.Disable;
-            gbRandomCardPlacing.Text = configThai.Random_Card_Placing;
-            rbRandomCardPlacingEnable.Text = configThai.Enable;
-            rbRandomCardPlacingDisable.Text = configThai.Disable;
-            gbAutoChainOrder.Text = configThai.Auto_Chain_Order;
-            rbAutoChainOrderEnable.Text = configThai.Enable;
-            rbAutoChainOrderDisable.Text = configThai.Disable;
-            gbNoDelayForChain.Text = configThai.No_Delay_For_Chain;
-            rbNoDelayForChainEnable.Text = configThai.Enable;
-            rbNoDelayForChainDisable.Text = configThai.Disable;
-            gbMuteOpponent.Text = configThai.Mute_Opponent;
-            rbMuteOpponentEnable.Text = configThai.Enable;
-            rbMuteOpponentDisable.Text = configThai.Disable;
-            gbMuteSpectators.Text = configThai.Mute_Spectators;
-            rbMuteSpectatorsEnable.Text = configThai.Enable;
-            rbMuteSpectatorsDisable.Text = configThai.Disable;
-            gbVolume.Text = configThai.Volume;
-            gbBackground.Text = configThai.Background;
-            rbBackGroundOption0.Text = configThai.Duel_Zone_Only;
-            rbBackGroundOption1.Text = configThai.Background_Only;
-            rbBackGroundOption2.Text = configThai.Both_Duel_Zone_And_Background;
-            rbBackGroundOption3.Text = configThai.Do_Not_Change_Background;
-            btnSave.Text = configThai.Save;
-            btnReset.Text = configThai.Reset;
-            btnLoadDefault.Text = configThai.Load_Default_Config;
-        }
 
         private void loadConfig()
         {
@@ -140,10 +62,6 @@ namespace YGOPro_Tweaker
             {
                 case "en":
                     { rbEnglish.Checked = true; break; }
-                case "de":
-                    { rbGerman.Checked = true; break; }
-                case "es":
-                    { rbSpanish.Checked = true; break; }
                 case "th":
                     { rbThai.Checked = true; break; }
             }
@@ -202,14 +120,15 @@ namespace YGOPro_Tweaker
             int Volume = Convert.ToInt16(_CConf.readConfig(CConf.configVar.volume));
             trackVolume.Value = Volume;
             lbVolume.Text = Volume.ToString();
-            //Read Background Config
-            switch (_CConf.readConfig(CConf.configVar.background))
-            {
-                case "0": { rbBackGroundOption0.Checked = true; break; }
-                case "1": { rbBackGroundOption1.Checked = true; break; }
-                case "2": { rbBackGroundOption2.Checked = true; break; }
-                case "3": { rbBackGroundOption3.Checked = true; break; }
-            }
+            //Read Alignment Fix Config
+            if (_CConf.readConfig(CConf.configVar.alignment_fix).Equals("0")) { rbAlignmentFixDisable.Checked = true; }
+            else { rbAlignmentFixEnable.Checked = true; }
+            //Read Show Anime Config
+            if (_CConf.readConfig(CConf.configVar.show_anime).Equals("0")) { rbShowAnimeDisable.Checked = true; }
+            else { rbShowAnimeEnable.Checked = true; }
+            //Read Ignore Instant Updates Config
+            if (_CConf.readConfig(CConf.configVar.ignore_instant_updates).Equals("0")) { rbIgnoreInstantUpdatesDisable.Checked = true; }
+            else { rbIgnoreInstantUpdatesEnable.Checked = true; }
         }
 
         private void saveConfig()
@@ -218,14 +137,6 @@ namespace YGOPro_Tweaker
             if (rbEnglish.Checked)
             {
                 _CConf.writeConfig(CConf.configVar.language, "en");
-            }
-            else if (rbGerman.Checked)
-            {
-                _CConf.writeConfig(CConf.configVar.language, "de");
-            }
-            else if (rbSpanish.Checked)
-            {
-                _CConf.writeConfig(CConf.configVar.language, "es");
             }
             else if (rbThai.Checked)
             {
@@ -349,23 +260,6 @@ namespace YGOPro_Tweaker
             }
             //Save Volume Config
             _CConf.writeConfig(CConf.configVar.volume, trackVolume.Value.ToString());
-            //Save Background Config
-            if (rbBackGroundOption0.Checked)
-            {
-                _CConf.writeConfig(CConf.configVar.background, "0");
-            }
-            else if (rbBackGroundOption1.Checked)
-            {
-                _CConf.writeConfig(CConf.configVar.background, "1");
-            }
-            else if (rbBackGroundOption2.Checked)
-            {
-                _CConf.writeConfig(CConf.configVar.background, "2");
-            }
-            else if (rbBackGroundOption3.Checked)
-            {
-                _CConf.writeConfig(CConf.configVar.background, "3");
-            }
             //Save Direct3D Config
             if (rbDirect3DEnable.Checked)
             {
@@ -374,6 +268,34 @@ namespace YGOPro_Tweaker
             else if (rbDirect3DDisable.Checked)
             {
                 _CConf.writeConfig(CConf.configVar.use_d3d, "0");
+            }
+
+            //Save Alignment Fix Config
+            if (rbAlignmentFixEnable.Checked)
+            {
+                _CConf.writeConfig(CConf.configVar.alignment_fix, "1");
+            }
+            else if (rbAlignmentFixDisable.Checked)
+            {
+                _CConf.writeConfig(CConf.configVar.alignment_fix, "0");
+            }
+            //Save Show Anime Config
+            if (rbShowAnimeEnable.Checked)
+            {
+                _CConf.writeConfig(CConf.configVar.show_anime, "1");
+            }
+            else if (rbShowAnimeDisable.Checked)
+            {
+                _CConf.writeConfig(CConf.configVar.show_anime, "0");
+            }
+            //Save Ignore Instant Updates Config
+            if (rbIgnoreInstantUpdatesEnable.Checked)
+            {
+                _CConf.writeConfig(CConf.configVar.ignore_instant_updates, "1");
+            }
+            else if (rbIgnoreInstantUpdatesDisable.Checked)
+            {
+                _CConf.writeConfig(CConf.configVar.ignore_instant_updates, "0");
             }
         }
 
@@ -405,7 +327,7 @@ namespace YGOPro_Tweaker
             trackAntiAliasing.Value = 0;
             rbErrorLogEnable.Checked = true;
             txtNickName.Text = "Player";
-            txtTextFontPath.Text = "fonts/ARIALUNI.TTF";
+            txtTextFontPath.Text = "fonts/simhei.ttf";
             txtTextFontSize.Text = "14";
             txtNumberFontPath.Text = "fonts/arialbd.ttf";
             rbScreenSettingWindowed.Checked = true;
@@ -416,8 +338,10 @@ namespace YGOPro_Tweaker
             rbNoDelayForChainDisable.Checked = true;
             rbMuteOpponentDisable.Checked = true;
             rbMuteSpectatorsDisable.Checked = true;
+            rbAlignmentFixDisable.Checked = true;
+            rbShowAnimeEnable.Checked = true;
+            rbIgnoreInstantUpdatesDisable.Checked = true;
             trackVolume.Value = 25;
-            rbBackGroundOption0.Checked = true;
             MessageBox.Show("Default config has filled. You can save it safe now", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 

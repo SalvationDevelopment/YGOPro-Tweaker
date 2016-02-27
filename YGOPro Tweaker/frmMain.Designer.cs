@@ -69,22 +69,22 @@
             // lbCredit
             // 
             this.lbCredit.AutoSize = true;
-            this.lbCredit.Location = new System.Drawing.Point(260, 168);
+            this.lbCredit.Location = new System.Drawing.Point(268, 168);
             this.lbCredit.Name = "lbCredit";
-            this.lbCredit.Size = new System.Drawing.Size(102, 26);
+            this.lbCredit.Size = new System.Drawing.Size(118, 26);
             this.lbCredit.TabIndex = 10;
-            this.lbCredit.Text = "YGOPro Tweaker \r\nDevelop by ekaomk";
+            this.lbCredit.Text = "YGOPro Tweaker \r\nDevelop by YGOProTH";
             this.lbCredit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // llbLink
             // 
             this.llbLink.AutoSize = true;
-            this.llbLink.Location = new System.Drawing.Point(160, 194);
+            this.llbLink.Location = new System.Drawing.Point(141, 196);
             this.llbLink.Name = "llbLink";
-            this.llbLink.Size = new System.Drawing.Size(227, 13);
+            this.llbLink.Size = new System.Drawing.Size(243, 13);
             this.llbLink.TabIndex = 3;
             this.llbLink.TabStop = true;
-            this.llbLink.Text = "https://github.com/ekaomk/YGOPro-Tweaker";
+            this.llbLink.Text = "https://github.com/YGOProTH/YGOPro-Tweaker";
             this.llbLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llbLink_LinkClicked);
             // 
             // frmMain
