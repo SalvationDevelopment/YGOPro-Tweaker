@@ -1,270 +1,173 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Text;
 
 using System.Windows.Forms;
 
-using System.Data.SQLite;
-using System.IO;
-
 namespace YGOPro_Tweaker
 {
-    public partial class frmDeckExtractor : Form
+    public partial class FrmDeckExtractor : Form
     {
-        cReplayManager Replay = new cReplayManager();
-        StringBuilder PlayerOneDeck = new StringBuilder();
-        StringBuilder PlayerTwoDeck = new StringBuilder();
-        StringBuilder PlayerThreeDeck = new StringBuilder();
-        StringBuilder PlayerFourDeck = new StringBuilder();
+        private readonly cReplayManager _replay = new cReplayManager();
+        private StringBuilder _playerOneDeck = new StringBuilder();
+        private StringBuilder _playerTwoDeck = new StringBuilder();
+        private StringBuilder _playerThreeDeck = new StringBuilder();
+        private StringBuilder _playerFourDeck = new StringBuilder();
 
-        List<string> PlayerMainDeck = new List<string>();
-        List<string> PlayerExtraDeck = new List<string>();
-        List<string> PlayerMainDeckText = new List<string>();
-        List<string> PlayerExtraDeckText = new List<string>();
+        private readonly List<string> _playerMainDeck = new List<string>();
+        private readonly List<string> _playerExtraDeck = new List<string>();
+        private readonly List<string> _playerMainDeckText = new List<string>();
+        private readonly List<string> _playerExtraDeckText = new List<string>();
 
-        string PlayerOneName;
-        string PlayerTwoName;
-        string PlayerThreeName;
-        string PlayerFourName;
-        int StartLP;
-        int StartHand;
-        int DrawFor;
+        private string _playerOneName;
+        private string _playerTwoName;
+        private string _playerThreeName;
+        private string _playerFourName;
+        private int _startLp;
+        private int _startHand;
+        private int _drawFor;
 
-        public frmDeckExtractor()
+        public FrmDeckExtractor()
         {
             InitializeComponent();
         }
 
-        private void frmDeckExtractor_Load(object sender, EventArgs e)
+        private void FrmDeckExtractor_Load(object sender, EventArgs e)
         {
-            resetPlayerName();
+            ResetPlayerName();
         }
 
-        private void resetPlayerName()
+        private void ResetPlayerName()
         {
-            btnCopyDeckListPlayerOne.Text = String.Format("Copy {0} Deck List", "?");
-            btnSaveDeckListPlayerOne.Text = String.Format("Save {0} Deck List", "?");
+            btnCopyDeckListPlayerOne.Text = "Copy ? Deck List";
+            btnSaveDeckListPlayerOne.Text = "Save ? Deck List";
 
-            btnCopyDeckListPlayerTwo.Text = String.Format("Copy {0} Deck List", "?");
-            btnSaveDeckListPlayerTwo.Text = String.Format("Save {0} Deck List", "?");
+            btnCopyDeckListPlayerTwo.Text = "Copy ? Deck List";
+            btnSaveDeckListPlayerTwo.Text = "Save ? Deck List";
 
-            btnCopyDeckListPlayerThree.Text = String.Format("Copy {0} Deck List", "?");
-            btnSaveDeckListPlayerThree.Text = String.Format("Save {0} Deck List", "?");
+            btnCopyDeckListPlayerThree.Text = "Copy ? Deck List";
+            btnSaveDeckListPlayerThree.Text = "Save ? Deck List";
 
-            btnCopyDeckListPlayerFour.Text = String.Format("Copy {0} Deck List", "?");
-            btnSaveDeckListPlayerFour.Text = String.Format("Save {0} Deck List", "?");
+            btnCopyDeckListPlayerFour.Text = "Copy ? Deck List";
+            btnSaveDeckListPlayerFour.Text = "Save ? Deck List";
         }
 
-        private void resetPlayerDeck()
+        private void ResetPlayerDeck()
         {
-            PlayerOneDeck = new StringBuilder();
-            PlayerTwoDeck = new StringBuilder();
-            PlayerThreeDeck = new StringBuilder();
-            PlayerFourDeck = new StringBuilder();
+            _playerOneDeck = new StringBuilder();
+            _playerTwoDeck = new StringBuilder();
+            _playerThreeDeck = new StringBuilder();
+            _playerFourDeck = new StringBuilder();
         }
 
         private void ReadBasicData()
         {
-            PlayerOneName = Replay.ExtractName(Replay.ReadString(40));
-            PlayerTwoName = Replay.ExtractName(Replay.ReadString(40));
-            if (!Replay.SingleMode) //tag, etc
+            _playerOneName = _replay.ExtractName(_replay.ReadString(40));
+            _playerTwoName = _replay.ExtractName(_replay.ReadString(40));
+            if (!_replay.SingleMode) //tag, etc
             {
-                PlayerFourName = Replay.ExtractName(Replay.ReadString(40));
-                PlayerThreeName = Replay.ExtractName(Replay.ReadString(40));
+                _playerFourName = _replay.ExtractName(_replay.ReadString(40));
+                _playerThreeName = _replay.ExtractName(_replay.ReadString(40));
             }
-            StartLP = Replay.DataReader.ReadInt32();
-            StartHand = Replay.DataReader.ReadInt32();
-            DrawFor = Replay.DataReader.ReadInt32();
-            Replay.DataReader.ReadInt32().ToString(System.Globalization.CultureInfo.InvariantCulture); //Player 1
-        }
-
-        private string GetCardName(int CardID)
-        {
-            // Normal
-            using (var conn = new SQLiteConnection(@"Data Source=cards.cdb"))
-            using (var cmd = conn.CreateCommand())
-            {
-                conn.Open();
-                cmd.CommandText = "SELECT name FROM texts WHERE id LIKE @CardID";
-                cmd.Parameters.Add(new SQLiteParameter("@CardID", CardID));
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string CardName = reader.GetString(reader.GetOrdinal("name"));
-                        return CardName;
-                    }
-                }
-                conn.Close();
-            }
-
-            // Expansions
-            string[] expansionDirectories = Directory.GetDirectories(Application.StartupPath + @"\expansions\");
-            foreach (string directory in expansionDirectories)
-            {
-                string[] expansionsDatabaseFileList = Directory.GetFiles(directory, "*.cdb", SearchOption.TopDirectoryOnly);
-                foreach (string exp in expansionsDatabaseFileList)
-                {
-                    using (var conn = new SQLiteConnection(@"Data Source=" + Path.Combine(directory, exp)))
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        try { conn.Open(); } catch { return string.Empty; }
-                        cmd.CommandText = "SELECT name FROM texts WHERE id LIKE @CardID";
-                        cmd.Parameters.Add(new SQLiteParameter("@CardID", CardID));
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                string CardName = reader.GetString(reader.GetOrdinal("name"));
-                                return CardName;
-                            }
-                        }
-                        conn.Close();
-                    }
-                }
-            }
-
-
-            return string.Empty;
+            _startLp = _replay.DataReader.ReadInt32();
+            _startHand = _replay.DataReader.ReadInt32();
+            _drawFor = _replay.DataReader.ReadInt32();
+            _replay.DataReader.ReadInt32().ToString(System.Globalization.CultureInfo.InvariantCulture); //Player 1
         }
 
         private void ReadDeck(StringBuilder PlayerDeck)
         {
-            int NumberOfCard = Replay.DataReader.ReadInt32();
-            PlayerMainDeck.Clear();
-            PlayerMainDeckText.Clear();
-            PlayerExtraDeck.Clear();
-            PlayerExtraDeckText.Clear();
+            var numberOfCard = _replay.DataReader.ReadInt32();
+            _playerMainDeck.Clear();
+            _playerMainDeckText.Clear();
+            _playerExtraDeck.Clear();
+            _playerExtraDeckText.Clear();
 
 
             //textBox1.Text += "----- Main -----" + Environment.NewLine;
-            for (int i = 0; i < NumberOfCard; i++)
+            for (var i = 0; i < numberOfCard; i++)
             {
-                string CardID = Replay.DataReader.ReadInt32().ToString(System.Globalization.CultureInfo.InvariantCulture);
-                string CardName = GetCardName(Convert.ToInt32(CardID));
-                if (CardName == "")
+                var cardId = _replay.DataReader.ReadInt32().ToString(System.Globalization.CultureInfo.InvariantCulture);
+                var cardName = YGOProUtils.getInstance().GetCardName(Convert.ToInt32(cardId));
+                if (cardName == "")
                 {
-                    MessageBox.Show(String.Format("Replay is invalid or old version. Program can not find card from ID.{0}Card ID : {1}", Environment.NewLine, CardID.ToString()
-                        ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($@"Replay is invalid or old version. Program can not find card from ID.{Environment.NewLine}Card ID : {cardId.ToString()}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     continue;
                 }
-                PlayerMainDeck.Add(CardID);
+                _playerMainDeck.Add(cardId);
 
                 //add number of card
-                int index = PlayerMainDeckText.FindIndex(x => x.Contains(CardName));
+                var index = _playerMainDeckText.FindIndex(x => x.Contains(cardName));
 
                 if (index > -1)
                 {
-                    int CardNumber = Convert.ToInt32(PlayerMainDeckText[index].Substring(PlayerMainDeckText[index].Length - 1, 1));
+                    var cardNumber = Convert.ToInt32(_playerMainDeckText[index].Substring(_playerMainDeckText[index].Length - 1, 1));
 
-                    CardNumber++;
+                    cardNumber++;
 
-                    PlayerMainDeckText[index] = ((CardName == string.Empty ? "UNKNOW CARD": CardName) + " x" + CardNumber.ToString());
+                    _playerMainDeckText[index] = (cardName == string.Empty ? "UNKNOWN CARD" : cardName) + " x" + cardNumber.ToString();
                 }
                 else
                 {
-                    PlayerMainDeckText.Add(CardName + " x1");
+                    _playerMainDeckText.Add(cardName + " x1");
                 }
 
             }
 
 
-            NumberOfCard = Replay.DataReader.ReadInt32();
+            numberOfCard = _replay.DataReader.ReadInt32();
 
-            for (int i = 0; i < NumberOfCard; i++)
+            for (var i = 0; i < numberOfCard; i++)
             {
-                string CardID = Replay.DataReader.ReadInt32().ToString(System.Globalization.CultureInfo.InvariantCulture);
-                string CardName = GetCardName(Convert.ToInt32(CardID));
-                if (CardName == "")
+                var cardId = _replay.DataReader.ReadInt32().ToString(System.Globalization.CultureInfo.InvariantCulture);
+                var cardName = YGOProUtils.getInstance().GetCardName(Convert.ToInt32(cardId));
+                if (cardName == "")
                 {
-                    MessageBox.Show(String.Format("Replay is invalid or old version. Program can not find card from ID.{0}Card ID : {1}", Environment.NewLine, CardID.ToString()
-                        ), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($@"Replay is invalid or old version. Program can not find card from ID.{Environment.NewLine}Card ID : {cardId.ToString()}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     continue;
                 }
-                PlayerExtraDeck.Add(CardID);
+                _playerExtraDeck.Add(cardId);
 
                 //add number of card
-                int index = PlayerExtraDeckText.FindIndex(x => x.Contains(CardName));
+                var index = _playerExtraDeckText.FindIndex(x => x.Contains(cardName));
                 if (index > -1)
                 {
-                    int CardNumber = Convert.ToInt32(PlayerExtraDeckText[index].Substring(PlayerExtraDeckText[index].Length - 1, 1));
+                    var CardNumber = Convert.ToInt32(_playerExtraDeckText[index].Substring(_playerExtraDeckText[index].Length - 1, 1));
 
-                    PlayerExtraDeckText[index] = ((CardName == string.Empty ? "UNKNOW CARD" : CardName) + " x" + (++CardNumber).ToString());
+                    _playerExtraDeckText[index] = (cardName == string.Empty ? "UNKNOWN CARD" : cardName) + " x" + (++CardNumber).ToString();
                 }
                 else
                 {
-                    PlayerExtraDeckText.Add(CardName + " x1");
+                    _playerExtraDeckText.Add(cardName + " x1");
                 }
             }
 
             //sort card by id
-            PlayerMainDeck.Sort();
-            PlayerExtraDeck.Sort();
-            PlayerMainDeckText.Sort();
-            PlayerExtraDeckText.Sort();
+            _playerMainDeck.Sort();
+            _playerExtraDeck.Sort();
+            _playerMainDeckText.Sort();
+            _playerExtraDeckText.Sort();
 
             PlayerDeck.AppendLine("#created by YGOPro Tweaker");
             PlayerDeck.AppendLine("#main");
 
-            foreach (string CardID in PlayerMainDeck)
-            {
-                PlayerDeck.AppendLine(CardID);
-            }
+            foreach (var CardID in _playerMainDeck) PlayerDeck.AppendLine(CardID);
             PlayerDeck.AppendLine("#extra");
-            foreach (string CardID in PlayerExtraDeck)
-            {
-                PlayerDeck.AppendLine(CardID);
-            }
+            foreach (var CardID in _playerExtraDeck) PlayerDeck.AppendLine(CardID);
             PlayerDeck.AppendLine("!side");
-        }
-
-
-        static int ExtractNumber(string text)
-        {
-            System.Text.RegularExpressions.Match match = System.Text.RegularExpressions.Regex.Match(text, @"(\d+)");
-            if (match == null)
-            {
-                return 0;
-            }
-
-            int value;
-            if (!int.TryParse(match.Value, out value))
-            {
-                return 0;
-            }
-
-            return value;
-        }
-
-        static byte[] GetBytes(string str)
-        {
-            byte[] bytes = new byte[str.Length * sizeof(char)];
-            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-            return bytes;
-        }
-
-        static string GetString(byte[] bytes)
-        {
-            char[] chars = new char[bytes.Length / sizeof(char)];
-            System.Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
-            return new string(chars);
         }
 
         private void btnLoadDeck_Click(object sender, EventArgs e)
         {
-            OpenFileDialog OFD = new OpenFileDialog();
+            var OFD = new OpenFileDialog();
             OFD.InitialDirectory = Application.StartupPath + "\\replay";
             OFD.Filter = "YGOPro Replay Files (*.yrp)|*.yrp|All files (*.*)|*.*";
             OFD.FilterIndex = 1;
             OFD.RestoreDirectory = true;
 
-            string ReplayPath = string.Empty;
+            var ReplayPath = string.Empty;
 
             if (OFD.ShowDialog() == DialogResult.OK)
-            {
                 try
                 {
                     ReplayPath = OFD.FileName;
@@ -273,80 +176,77 @@ namespace YGOPro_Tweaker
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
-            }
             else
-            {
                 return;
-            }
 
             txtReplayPath.Text = ReplayPath;
-            resetPlayerName();
-            resetPlayerDeck();
-            Replay.FromFile(ReplayPath);
+            ResetPlayerName();
+            ResetPlayerDeck();
+            _replay.FromFile(ReplayPath);
 
             ReadBasicData();
 
 
-            lbStartLP.Text = (String.Format("Start Life Point : {0}", StartLP.ToString()));
-            lbStartHand.Text = (String.Format("Start Hand : {0}", StartHand.ToString()));
-            lbDrawFor.Text = (String.Format("Draw For : {0}", DrawFor.ToString()));
+            lbStartLP.Text = $"Start Life Point : {_startLp}";
+            lbStartHand.Text = $"Start Hand : {_startHand}";
+            lbDrawFor.Text = $"Draw For : {_drawFor}";
 
             listPlayerOneDeckList.Items.Clear();
             listPlayerTwoDeckList.Items.Clear();
             listPlayerThreeDeckList.Items.Clear();
             listPlayerFourDeckList.Items.Clear();
 
-            ReadDeck(PlayerOneDeck);
-            listPlayerOneDeckList.Items.Add(String.Format("{0} Deck", PlayerOneName));
+            ReadDeck(_playerOneDeck);
+            listPlayerOneDeckList.Items.Add($"{_playerOneName} Deck");
             listPlayerOneDeckList.Items.Add("============ Main Deck ============");
-            listPlayerOneDeckList.Items.AddRange(PlayerMainDeckText.ToArray());
+            listPlayerOneDeckList.Items.AddRange(_playerMainDeckText.ToArray());
             listPlayerOneDeckList.Items.Add("============ Extra Deck ============");
-            listPlayerOneDeckList.Items.AddRange(PlayerExtraDeckText.ToArray());
+            listPlayerOneDeckList.Items.AddRange(_playerExtraDeckText.ToArray());
 
-            btnCopyDeckListPlayerOne.Text = String.Format("Copy {0} Deck List", PlayerOneName);
-            btnSaveDeckListPlayerOne.Text = String.Format("Save {0} Deck List", PlayerOneName);
+            btnCopyDeckListPlayerOne.Text = $"Copy {_playerOneName} Deck List";
+            btnSaveDeckListPlayerOne.Text = $"Save {_playerOneName} Deck List";
 
-            PlayerMainDeck.Clear();
-            PlayerExtraDeck.Clear();
+            _playerMainDeck.Clear();
+            _playerExtraDeck.Clear();
 
-            ReadDeck(PlayerTwoDeck);
-            listPlayerTwoDeckList.Items.Add(String.Format("{0} Deck", PlayerTwoName));
+            ReadDeck(_playerTwoDeck);
+            listPlayerTwoDeckList.Items.Add($"{_playerTwoName} Deck");
             listPlayerTwoDeckList.Items.Add("============ Main Deck ============");
-            listPlayerTwoDeckList.Items.AddRange(PlayerMainDeckText.ToArray());
+            listPlayerTwoDeckList.Items.AddRange(_playerMainDeckText.ToArray());
             listPlayerTwoDeckList.Items.Add("============ Extra Deck ============");
-            listPlayerTwoDeckList.Items.AddRange(PlayerExtraDeckText.ToArray());
+            listPlayerTwoDeckList.Items.AddRange(_playerExtraDeckText.ToArray());
 
-            btnCopyDeckListPlayerTwo.Text = String.Format("Copy {0} Deck List", PlayerTwoName);
-            btnSaveDeckListPlayerTwo.Text = String.Format("Save {0} Deck List", PlayerTwoName);
+            btnCopyDeckListPlayerTwo.Text = $"Copy {_playerTwoName} Deck List";
+            btnSaveDeckListPlayerTwo.Text = $"Save {_playerTwoName} Deck List";
 
-            if (!Replay.SingleMode)
+            if (!_replay.SingleMode)
             {
-                PlayerMainDeck.Clear();
-                PlayerExtraDeck.Clear();
-                ReadDeck(PlayerThreeDeck);
+                _playerMainDeck.Clear();
+                _playerExtraDeck.Clear();
+                ReadDeck(_playerThreeDeck);
 
-                listPlayerThreeDeckList.Items.Add(String.Format("{0} Deck", PlayerThreeName));
+                listPlayerThreeDeckList.Items.Add($"{_playerThreeName} Deck");
                 listPlayerThreeDeckList.Items.Add("============ Main Deck ============");
-                listPlayerThreeDeckList.Items.AddRange(PlayerMainDeckText.ToArray());
+                listPlayerThreeDeckList.Items.AddRange(_playerMainDeckText.ToArray());
                 listPlayerThreeDeckList.Items.Add("============ Extra Deck ============");
-                listPlayerThreeDeckList.Items.AddRange(PlayerExtraDeckText.ToArray());
+                listPlayerThreeDeckList.Items.AddRange(_playerExtraDeckText.ToArray());
 
-                btnCopyDeckListPlayerThree.Text = String.Format("Copy {0} Deck List", PlayerThreeName);
-                btnSaveDeckListPlayerThree.Text = String.Format("Save {0} Deck List", PlayerThreeName);
+                btnCopyDeckListPlayerThree.Text = $"Copy {_playerThreeName} Deck List";
+                btnSaveDeckListPlayerThree.Text = $"Save {_playerThreeName} Deck List";
 
                 //
-                PlayerMainDeck.Clear();
-                PlayerExtraDeck.Clear();
-                ReadDeck(PlayerFourDeck);
+                _playerMainDeck.Clear();
+                _playerExtraDeck.Clear();
+                ReadDeck(_playerFourDeck);
 
-                listPlayerFourDeckList.Items.Add(String.Format("{0} Deck", PlayerFourName));
+                listPlayerFourDeckList.Items.Add($"{_playerFourName} Deck");
                 listPlayerFourDeckList.Items.Add("============ Main Deck ============");
-                listPlayerFourDeckList.Items.AddRange(PlayerMainDeckText.ToArray());
+                listPlayerFourDeckList.Items.AddRange(_playerMainDeckText.ToArray());
                 listPlayerFourDeckList.Items.Add("============ Extra Deck ============");
-                listPlayerFourDeckList.Items.AddRange(PlayerExtraDeckText.ToArray());
+                listPlayerFourDeckList.Items.AddRange(_playerExtraDeckText.ToArray());
 
-                btnCopyDeckListPlayerFour.Text = String.Format("Copy {0} Deck List", PlayerFourName);
-                btnSaveDeckListPlayerFour.Text = String.Format("Save {0} Deck List", PlayerFourName);
+                btnCopyDeckListPlayerFour.Text = $"Copy {_playerFourName} Deck List";
+                btnSaveDeckListPlayerFour.Text = $"Save {_playerFourName} Deck List";
 
 
             }
@@ -355,39 +255,37 @@ namespace YGOPro_Tweaker
 
             lbPlayer.Text = string.Empty;
 
-            if (Replay.SingleMode)
+            if (_replay.SingleMode)
             {
-                lbMode.Text = ("Mode : Single or Match" + Environment.NewLine);
-                lbPlayer.Text += String.Format("Player 1 : {0}{1}", PlayerOneName, Environment.NewLine);
-                lbPlayer.Text += String.Format("VS{0}", Environment.NewLine);
-                lbPlayer.Text += String.Format("Player 2 : {0}{1}", PlayerTwoName, Environment.NewLine);
+                lbMode.Text = "Mode : Single or Match" + Environment.NewLine;
+                lbPlayer.Text += $"Player 1 : {_playerOneName}{Environment.NewLine}";
+                lbPlayer.Text += $"VS{Environment.NewLine}";
+                lbPlayer.Text += $"Player 2 : {_playerTwoName}{Environment.NewLine}";
             }
             else
             {
-                if (PlayerTwoName.Trim().Equals(string.Empty)) { lbMode.Text = "Mode : 1vs2" + Environment.NewLine; } //if 1vs2 mode
-                else { lbMode.Text = "Mode : Tag" + Environment.NewLine; }
+                if (_playerTwoName.Trim().Equals(string.Empty))
+                    lbMode.Text = "Mode : 1vs2" + Environment.NewLine;
+                else
+                    lbMode.Text = "Mode : Tag" + Environment.NewLine;
 
-                lbPlayer.Text += String.Format("Player 1 : {0}{1}", PlayerOneName, Environment.NewLine);
-                if (!PlayerTwoName.Trim().Equals(string.Empty))
-                { //if not 1vs2 mode
-                    lbPlayer.Text += String.Format("Player 2 : {0}{1}", PlayerTwoName, Environment.NewLine);
-                }
-                lbPlayer.Text += String.Format("VS{0}", Environment.NewLine);
-                lbPlayer.Text += String.Format("Player 3 : {0}{1}", PlayerThreeName, Environment.NewLine);
-                lbPlayer.Text += String.Format("Player 4 : {0}{1}", PlayerFourName, Environment.NewLine);
+                lbPlayer.Text += $"Player 1 : {_playerOneName}{Environment.NewLine}";
+                if (!_playerTwoName.Trim().Equals(string.Empty))
+                //if not 1vs2 mode
+                    lbPlayer.Text += $"Player 2 : {_playerTwoName}{Environment.NewLine}";
+                lbPlayer.Text += $"VS{Environment.NewLine}";
+                lbPlayer.Text += $"Player 3 : {_playerThreeName}{Environment.NewLine}";
+                lbPlayer.Text += $"Player 4 : {_playerFourName}{Environment.NewLine}";
             }
-            Replay.DataReader.Close();
+            _replay.DataReader.Close();
         }
 
         private void btnCopyDeckListPlayerOne_Click(object sender, EventArgs e)
         {
-            if (PlayerOneDeck.Length > 0)
+            if (_playerOneDeck.Length > 0)
             {
-                StringBuilder sbTmep = new StringBuilder();
-                foreach (string value in listPlayerOneDeckList.Items)
-                {
-                    sbTmep.AppendLine(value);
-                }
+                var sbTmep = new StringBuilder();
+                foreach (string value in listPlayerOneDeckList.Items) sbTmep.AppendLine(value);
                 Clipboard.SetText(sbTmep.ToString());
                 MessageBox.Show("Copied To Clipboard.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -395,13 +293,10 @@ namespace YGOPro_Tweaker
 
         private void btnCopyDeckListPlayerTwo_Click(object sender, EventArgs e)
         {
-            if (PlayerTwoDeck.Length > 0)
+            if (_playerTwoDeck.Length > 0)
             {
-                StringBuilder sbTmep = new StringBuilder();
-                foreach (string value in listPlayerTwoDeckList.Items)
-                {
-                    sbTmep.AppendLine(value);
-                }
+                var sbTmep = new StringBuilder();
+                foreach (string value in listPlayerTwoDeckList.Items) sbTmep.AppendLine(value);
                 Clipboard.SetText(sbTmep.ToString());
                 MessageBox.Show("Copied To Clipboard.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -409,13 +304,10 @@ namespace YGOPro_Tweaker
 
         private void btnCopyDeckListPlayerThree_Click(object sender, EventArgs e)
         {
-            if (PlayerThreeDeck.Length > 0)
+            if (_playerThreeDeck.Length > 0)
             {
-                StringBuilder sbTmep = new StringBuilder();
-                foreach (string value in listPlayerThreeDeckList.Items)
-                {
-                    sbTmep.AppendLine(value);
-                }
+                var sbTmep = new StringBuilder();
+                foreach (string value in listPlayerThreeDeckList.Items) sbTmep.AppendLine(value);
                 Clipboard.SetText(sbTmep.ToString());
                 MessageBox.Show("Copied To Clipboard.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -423,13 +315,10 @@ namespace YGOPro_Tweaker
 
         private void btnCopyDeckListPlayerFour_Click(object sender, EventArgs e)
         {
-            if (PlayerFourDeck.Length > 0)
+            if (_playerFourDeck.Length > 0)
             {
-                StringBuilder sbTmep = new StringBuilder();
-                foreach (string value in listPlayerFourDeckList.Items)
-                {
-                    sbTmep.AppendLine(value);
-                }
+                var sbTmep = new StringBuilder();
+                foreach (string value in listPlayerFourDeckList.Items) sbTmep.AppendLine(value);
                 Clipboard.SetText(sbTmep.ToString());
                 MessageBox.Show("Copied To Clipboard.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -437,73 +326,61 @@ namespace YGOPro_Tweaker
 
         private void btnSaveDeckListPlayerOne_Click(object sender, EventArgs e)
         {
-            if (PlayerOneDeck.Length > 0)
+            if (_playerOneDeck.Length > 0)
             {
                 // Configure save file dialog box
-                SaveFileDialog dlg = new SaveFileDialog();
+                var dlg = new SaveFileDialog();
                 dlg.InitialDirectory = Application.StartupPath + "\\deck";
                 dlg.FileName = "deck.ydk"; // Default file name
                 dlg.DefaultExt = ".ydk"; // Default file extension
                 dlg.Filter = "YGOPro Deck Files (.ydk)|*.ydk"; // Filter files by extension 
 
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    System.IO.File.WriteAllBytes(dlg.FileName, System.Text.Encoding.UTF8.GetBytes(PlayerOneDeck.ToString()));
-                }
+                if (dlg.ShowDialog() == DialogResult.OK) System.IO.File.WriteAllBytes(dlg.FileName, Encoding.UTF8.GetBytes(_playerOneDeck.ToString()));
             }
         }
 
         private void btnSaveDeckListPlayerTwo_Click(object sender, EventArgs e)
         {
-            if (PlayerTwoDeck.Length > 0)
+            if (_playerTwoDeck.Length > 0)
             {
                 // Configure save file dialog box
-                SaveFileDialog dlg = new SaveFileDialog();
+                var dlg = new SaveFileDialog();
                 dlg.InitialDirectory = Application.StartupPath + "\\deck";
                 dlg.FileName = "deck.ydk"; // Default file name
                 dlg.DefaultExt = ".ydk"; // Default file extension
                 dlg.Filter = "YGOPro Deck Files (.ydk)|*.ydk"; // Filter files by extension 
 
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    System.IO.File.WriteAllBytes(dlg.FileName, System.Text.Encoding.UTF8.GetBytes(PlayerTwoDeck.ToString()));
-                }
+                if (dlg.ShowDialog() == DialogResult.OK) System.IO.File.WriteAllBytes(dlg.FileName, Encoding.UTF8.GetBytes(_playerTwoDeck.ToString()));
             }
         }
 
         private void btnSaveDeckListPlayerThree_Click(object sender, EventArgs e)
         {
-            if (PlayerThreeDeck.Length > 0)
+            if (_playerThreeDeck.Length > 0)
             {
                 // Configure save file dialog box
-                SaveFileDialog dlg = new SaveFileDialog();
+                var dlg = new SaveFileDialog();
                 dlg.InitialDirectory = Application.StartupPath + "\\deck";
                 dlg.FileName = "deck.ydk"; // Default file name
                 dlg.DefaultExt = ".ydk"; // Default file extension
                 dlg.Filter = "YGOPro Deck Files (.ydk)|*.ydk"; // Filter files by extension 
 
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    System.IO.File.WriteAllBytes(dlg.FileName, System.Text.Encoding.UTF8.GetBytes(PlayerThreeDeck.ToString()));
-                }
+                if (dlg.ShowDialog() == DialogResult.OK) System.IO.File.WriteAllBytes(dlg.FileName, Encoding.UTF8.GetBytes(_playerThreeDeck.ToString()));
             }
         }
 
         private void btnSaveDeckListPlayerFour_Click(object sender, EventArgs e)
         {
-            if (PlayerFourDeck.Length > 0)
+            if (_playerFourDeck.Length > 0)
             {
                 // Configure save file dialog box
-                SaveFileDialog dlg = new SaveFileDialog();
+                var dlg = new SaveFileDialog();
                 dlg.InitialDirectory = Application.StartupPath + "\\deck";
                 dlg.FileName = "deck.ydk"; // Default file name
                 dlg.DefaultExt = ".ydk"; // Default file extension
                 dlg.Filter = "YGOPro Deck Files (.ydk)|*.ydk"; // Filter files by extension 
 
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    System.IO.File.WriteAllBytes(dlg.FileName, System.Text.Encoding.UTF8.GetBytes(PlayerFourDeck.ToString()));
-                }
+                if (dlg.ShowDialog() == DialogResult.OK) System.IO.File.WriteAllBytes(dlg.FileName, Encoding.UTF8.GetBytes(_playerFourDeck.ToString()));
             }
         }
     }

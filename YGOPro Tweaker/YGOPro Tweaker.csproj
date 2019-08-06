@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>YGOPro_Tweaker</RootNamespace>
     <AssemblyName>YGOPro Tweaker</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -68,11 +68,11 @@
     <Compile Include="frmConfig.Designer.cs">
       <DependentUpon>frmConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmDeckExtractor.cs">
+    <Compile Include="FrmDeckExtractor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmDeckExtractor.Designer.cs">
-      <DependentUpon>frmDeckExtractor.cs</DependentUpon>
+    <Compile Include="FrmDeckExtractor.Designer.cs">
+      <DependentUpon>FrmDeckExtractor.cs</DependentUpon>
     </Compile>
     <Compile Include="frmDeckList.cs">
       <SubType>Form</SubType>
@@ -88,11 +88,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="YGOProUtils.cs" />
     <EmbeddedResource Include="frmConfig.resx">
       <DependentUpon>frmConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDeckExtractor.resx">
-      <DependentUpon>frmDeckExtractor.cs</DependentUpon>
+    <EmbeddedResource Include="FrmDeckExtractor.resx">
+      <DependentUpon>FrmDeckExtractor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDeckList.resx">
       <DependentUpon>frmDeckList.cs</DependentUpon>

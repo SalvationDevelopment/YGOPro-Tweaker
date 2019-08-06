@@ -1,6 +1,6 @@
 ﻿namespace YGOPro_Tweaker
 {
-    partial class frmDeckExtractor
+    partial class FrmDeckExtractor
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDeckExtractor));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmDeckExtractor));
             this.txtReplayPath = new System.Windows.Forms.TextBox();
             this.btnCopyDeckListPlayerThree = new System.Windows.Forms.Button();
             this.btnSaveDeckListPlayerThree = new System.Windows.Forms.Button();
@@ -225,7 +225,7 @@
             this.btnLoadDeck.UseVisualStyleBackColor = true;
             this.btnLoadDeck.Click += new System.EventHandler(this.btnLoadDeck_Click);
             // 
-            // frmDeckExtractor
+            // FrmDeckExtractor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -252,10 +252,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "frmDeckExtractor";
+            this.Name = "FrmDeckExtractor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Deck Extractor - YGOPro Tweaker";
-            this.Load += new System.EventHandler(this.frmDeckExtractor_Load);
+            this.Load += new System.EventHandler(this.FrmDeckExtractor_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

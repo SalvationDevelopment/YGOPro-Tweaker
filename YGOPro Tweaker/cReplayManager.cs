@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 using System.IO;
-using System.Runtime.InteropServices;
-using SevenZip.Sdk.Compression;
+using System.Text;
 
 namespace YGOPro_Tweaker
 {

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace YGOPro_Tweaker
@@ -45,7 +40,7 @@ namespace YGOPro_Tweaker
             DialogResult drs = MessageBox.Show("This software (Deck Extractor) is develop for learn about replay file of YGOPro. Did not have any other purpose, If the user has used in the wrong way. Or cause suffering or damage to themselves and others. We are not responsible in any way.\nIf you press Yes, assume you have read. And accept this", "Agreement", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (drs == System.Windows.Forms.DialogResult.Yes)
             {
-                frmDeckExtractor deckExtractorForm = new frmDeckExtractor();
+                FrmDeckExtractor deckExtractorForm = new FrmDeckExtractor();
                 this.Hide();
                 deckExtractorForm.ShowDialog();
                 this.Show();
