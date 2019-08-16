@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-
-using System.Data.SQLite;
-using System.IO;
 
 namespace YGOPro_Tweaker
 {
@@ -60,7 +54,7 @@ namespace YGOPro_Tweaker
             PlayerExtraDeckText.Clear(); extraDeck.Clear();
             PlayerSideDeckText.Clear(); sideDeck.Clear();
         }
-        
+
 
         private void printList()
         {
@@ -117,7 +111,7 @@ namespace YGOPro_Tweaker
             for (int i = 0; i < Deck.Count; i++)
             {
                 string CardID = Deck[i].ToString();
-                string CardName = GetCardName(Convert.ToInt32(CardID));
+                string CardName = YGOProUtils.getInstance().GetCardName(Convert.ToInt32(CardID));
                 if (CardName == "")
                 {
                     MessageBox.Show(String.Format("Deck is invalid or old version. Program can not find card from ID.{0}Card ID : {1}", Environment.NewLine, CardID.ToString()
@@ -186,7 +180,8 @@ namespace YGOPro_Tweaker
                     case "#main": flag = 0; break;
                     case "#extra": flag = 1; break;
                     case "!side": flag = 2; break;
-                    default: if (int.TryParse(line, out resultParse))
+                    default:
+                        if (int.TryParse(line, out resultParse))
                         {
                             switch (flag)
                             {
@@ -199,50 +194,6 @@ namespace YGOPro_Tweaker
                 }
             }
             return true;
-        }
-
-        private string GetCardName(int CardID)
-        {
-            // Normal
-            using (var conn = new SQLiteConnection(@"Data Source=cards.cdb"))
-            using (var cmd = conn.CreateCommand())
-            {
-                conn.Open();
-                cmd.CommandText = "SELECT name FROM texts WHERE id LIKE @CardID";
-                cmd.Parameters.Add(new SQLiteParameter("@CardID", CardID));
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string CardName = reader.GetString(reader.GetOrdinal("name"));
-                        return CardName;
-                    }
-                }
-                conn.Close();
-            }
-
-            // Expansions
-            string[] expansionsDatabaseFileList = Directory.GetFiles(Application.StartupPath + @"\expansions\live\", "*.cdb", SearchOption.TopDirectoryOnly);
-            foreach (string exp in expansionsDatabaseFileList)
-            {
-                using (var conn = new SQLiteConnection(@"Data Source=expansions\live\" + Path.GetFileName(exp))) 
-                using (var cmd = conn.CreateCommand())
-                {
-                    try { conn.Open(); } catch { return string.Empty; }
-                    cmd.CommandText = "SELECT name FROM texts WHERE id LIKE @CardID";
-                    cmd.Parameters.Add(new SQLiteParameter("@CardID", CardID));
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            string CardName = reader.GetString(reader.GetOrdinal("name"));
-                            return CardName;
-                        }
-                    }
-                    conn.Close();
-                }
-            }
-            return string.Empty;
         }
 
         private void btnCopyToClipboard_Click(object sender, EventArgs e)
